@@ -14,16 +14,22 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<!-- 
+	<resources> : location에 대한 요청이 Spring MVC에 영향을 받아 직접 접근이 불가능한 경우
+	                           이를 WAS에게 위임하여 url로 resourse에 직접 접근 할 수 있도록 해줌.    
+				* : 0 개 이상의 문자와 매칭 
+				** : 0 개 이상의 디렉토리와 화일과 매칭 
+				mapping="/resources/**" : /resources/ 의 하위 경로로 접근하는 모든 경로와 파일은
+				location="/resources/" : /resources/ 디렉토리 에서 찾아라 ~~~ 
+	-->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	<context:component-scan base-package="com.ncs.one, service, util" />
 	
-	<context:component-scan base-package="com.ncs.one" />
-	
-		
 	<!-- Mybatis 설정 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 		=> DAO 에서의 sql 구문을 xml 로 처리
 		=> JDBC Connection, Mybatis 설정 : Sql 구문 등..  	-->
@@ -61,7 +67,8 @@
 			- sqlSessionFactory 를 생성자로 주입해서 설정  -->	
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</beans:bean>		
+	</beans:bean>	
+		
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
        ** Image Upload & Download
        1) Upload : MultipartResolver 설정 -->
@@ -69,10 +76,18 @@
          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
       <beans:property name="maxUploadSize" value="-1" />   
    </beans:bean>
-   <!-- 
-      => id , name 변경 불가능 
-         : 대부분의 Resolver로 끝나는 클래스의 경우에는 이미 정해져있기 때문에 변경불가능.
-      => maxUploadSize 는 지정하지 않으면 default 값은 -1 이며 크기 무제한 이 됨. 
-    -->
-	
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ** JsonView   -->
+   <beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView" /> 
+   <beans:bean id="viewResolver" 
+         class="org.springframework.web.servlet.view.BeanNameViewResolver">
+      <beans:property name="order" value="1" />
+   </beans:bean> 
+   
+   <!-- ** Image DownLoad 
+       => 다운로드를 처리할 ViewResolver 클래스 등록
+         => id="download" 와  컨트롤러의 매핑메서드에서 리턴된 view name 과 같아야 한다.    
+   <beans:bean id="download" class="downTest.DownloadView"/> -->
+
 </beans:beans>

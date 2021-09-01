@@ -5,34 +5,34 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import util.PmemberDAO;
-import vo.PmemberVO;
-
+import util.CompanyDAO;
+import vo.CompanyVO;
 
 @Service
-public class PmemberServiceImpl implements PmemberService {
+public class CompanyServiceImpl implements CompanyService {
+
 	@Autowired
-	PmemberDAO dao ;
+	CompanyDAO dao;
 	
 	@Override
-	public List<PmemberVO> selectList() {
+	public List<CompanyVO> selectList() {
 		return dao.selectList();
-	} //selectList()
+	} //selectlist
 	@Override
-	public PmemberVO selectOne(PmemberVO vo) {
+	public CompanyVO selectOne(CompanyVO vo) {
 		return dao.selectOne(vo);
 	} //selectOne
-	
 	@Override
-	public int insert(PmemberVO vo) {
+	public int insert(CompanyVO vo) {
 		return dao.insert(vo);
 	} //insert
 	@Override
-	public int update(PmemberVO vo) {
+	public int update(CompanyVO vo) {
 		return dao.update(vo);
 	} //update
 	@Override
-	public int delete(PmemberVO vo) {
+	public int delete(CompanyVO vo) {
 		return dao.delete(vo);
 	} //delete
-} //class
+
+}
