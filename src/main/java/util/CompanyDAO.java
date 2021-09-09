@@ -6,15 +6,32 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import criTest.SearchCriteria;
 import vo.CompanyVO;
+
 
 @Repository
 public class CompanyDAO {
-
+	
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
 	private static final String NS = "one.mapper.CompanyMapper.";
+	
+	// ** Check_MemberList
+	public List<CompanyVO> checkList(CompanyVO vo) {
+		return sqlSession.selectList(NS+"checkList",vo);
+	}
+	
+	// PageList2. => SearchPageList---------------
+	// => mapper 에 searchRowsCount, searchList 추가
+	public int searchRowsCount(SearchCriteria cri) {
+		return sqlSession.selectOne(NS+"searchRowsCount",cri);
+	}
+	public List<CompanyVO> searchList(SearchCriteria cri) {
+		return sqlSession.selectList(NS+"searchList",cri);
+	}
 	
 	// ** selectList
 	public List<CompanyVO> selectList() {
