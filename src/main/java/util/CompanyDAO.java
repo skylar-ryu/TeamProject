@@ -19,7 +19,7 @@ public class CompanyDAO {
 	
 	private static final String NS = "one.mapper.CompanyMapper.";
 	
-	// ** Check_MemberList
+	// ** Check_CompanyList
 	public List<CompanyVO> checkList(CompanyVO vo) {
 		return sqlSession.selectList(NS+"checkList",vo);
 	}

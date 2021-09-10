@@ -23,7 +23,7 @@
       <td><input type="text" name="cname" id="cname" size="10"><br>
   </tr>
   <tr height="40"><td bgcolor="LightGreen">카테고리</td>
-  	<td><select name="ctyoe" id="ctype">
+  	<td><select name="ctype" id="ctype">
 		  	<option value="G" selected="selected">선택해주세요</option>
 			<option value="A">맛집</option>
 			<option value="B">도서관</option>

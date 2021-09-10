@@ -43,6 +43,12 @@ public class HomeController {
 		
 		mv.setViewName("redirect:home");
 		return mv;
-	} 
+	}//crypt
 
-}
+	// ** Access_denied-handler (403 오류 화면 출력하기)
+	@RequestMapping(value = "/accessError")
+	public ModelAndView accessError(ModelAndView mv) {
+		mv.setViewName("errorPage/exception_403");
+		return mv;
+	}//error
+}//class

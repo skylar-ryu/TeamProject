@@ -53,7 +53,7 @@ function comInCheck() {
 		<span id="cpwMessage" class="eMessage"></span></td>
 	</tr>
 	<tr height="50"><td></td>
-		<td><input type="submit" value="로그인">&nbsp;
+		<td><input type="submit" value="로그인" onclick="return inCheck()">&nbsp;
 			<input type="reset" value="취소">&nbsp;
 		</td>
 	</tr>
