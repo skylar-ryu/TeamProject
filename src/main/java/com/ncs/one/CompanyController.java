@@ -52,7 +52,7 @@ public class CompanyController {
 		String realPath = request.getRealPath("/");
 		String fileName = dnfile.substring(dnfile.lastIndexOf("/")+1);
 		if (realPath.contains(".eclipse."))
-			 realPath = "C:/Users/skyla/Documents/MTest/MyWork/Spring03/src/main/webapp/resources/uploadImage"+fileName;
+			 realPath = "C:/Users/skyla/Documents/MTest/MyWork//src/main/webapp/resources/uploadImage"+fileName;
 		else realPath += "resources\\uploadImage\\"+fileName; 
 		File file = new File(realPath) ;
 		mv.addObject("downloadFile", file);
@@ -63,11 +63,11 @@ public class CompanyController {
 	// ** Cno 중복확인
 	@RequestMapping(value = "/cnoCheck")
 	public ModelAndView cnoCheck(ModelAndView mv, CompanyVO vo) {
-		mv.addObject("newID", vo.getCno());
+		mv.addObject("newCno", vo.getCno());
 		if (service.selectOne(vo) != null) {
 			mv.addObject("cnoUse", "F"); // 사용불가
 		}else mv.addObject("cnoUse", "T"); // 사용가능
-		mv.setViewName("com/cnoDupCheck");
+		mv.setViewName("company/cnoDupCheck");
 		return mv;
 	} //cnoCheck
 	
@@ -132,10 +132,10 @@ public class CompanyController {
 			vo=service.selectOne(vo);
 			if(vo!=null) {
 				if("U".equals(request.getParameter("jcode"))) {
-					mv.setViewName("company/cupdateForm");
+					mv.setViewName("company/comUpdateForm");
 					vo.setCpw((String)session.getAttribute("loginCpw"));
 				}else {
-					mv.setViewName("company/companyDetail");
+					mv.setViewName("company/comDetail");
 					vo.setCpw("********");
 				}
 				mv.addObject("Apple",vo);
@@ -178,7 +178,7 @@ public class CompanyController {
 		if (!f1.exists()) f1.mkdir();
 
 		// 기본 Image 지정
-		String file1, file2 = "resources/uploadImage/basicman1.jpg";
+		String file1, file2 = "resources/uploadImage/basicman1.png";
 
 		MultipartFile comUploadfilef = vo.getComUploadfilef();
 		if ( comUploadfilef != null && !comUploadfilef.isEmpty() ) {
@@ -188,7 +188,7 @@ public class CompanyController {
 			file2 = "resources/uploadImage/" + comUploadfilef.getOriginalFilename(); // Table 저장 경로
 		}
 
-		vo.setComuUploadfile(file2); // Table 저장 경로 set
+		vo.setComUploadfile(file2); // Table 저장 경로 set
 
 		// ** Password 암호화 => BCryptPasswordEncoder 적용 
 		vo.setCpw(passwordEncoder.encode(vo.getCpw()));
@@ -213,7 +213,7 @@ public class CompanyController {
 		
 		String realPath = request.getRealPath("/");
 		if (realPath.contains(".eclipse."))
-			 realPath = "C:/Users/skyla/Documents/MTest/MyWork/Spring03/src/main/webapp/resources/uploadImage";
+			 realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage";
 		else realPath += "resources\\uploadImage\\";
 		
 		// * 폴더 만들기 (위의 저장경로에 폴더가 없을 경우)
@@ -221,7 +221,7 @@ public class CompanyController {
 		if (!f1.exists()) f1.mkdir();
 		
 		// * 기본 Image 지정
-		String file1, file2 = "resources/uploadImage/basicman1.jpg";
+		String file1, file2 = "resources/uploadImage/basicman1.png";
 		
 		MultipartFile comUploadfilef = vo.getComUploadfilef();
 		if ( comUploadfilef != null && !comUploadfilef.isEmpty() ) {
@@ -231,10 +231,10 @@ public class CompanyController {
 			file2 = "resources/uploadImage/" + comUploadfilef.getOriginalFilename(); // Table 저장 경로
 		}else {
 			// 변경없을시 : 이전과 동일하게 처리 
-			file2 = vo.getComuUploadfile();
+			file2 = vo.getComUploadfile();
 		}
 
-		vo.setComuUploadfile(file2); // Table 저장 경로 set
+		vo.setComUploadfile(file2); // Table 저장 경로 set
 
 		// ** Password 암호화 => BCryptPasswordEncoder 적용 
 		vo.setCpw(passwordEncoder.encode(vo.getCpw()));
@@ -242,11 +242,11 @@ public class CompanyController {
 		if (service.insert(vo) > 0) {
 			// Join 성공 -> 로그인 유도
 			rttr.addFlashAttribute("message", "~~ 정보 수정 성공 ~~");
-			mv.setViewName("redirect:clist");
+			mv.setViewName("redirect:clogin");
 		}else {
 			// Join 실패 -> 재가입 유도
 			rttr.addFlashAttribute("message", "~~ 정보수정 오류, 다시 하세요 ~~");
-			mv.setViewName("redirect:cdetail?id="+vo.getCno()+"&jcode=U");
+			mv.setViewName("redirect:cdetail?cno="+vo.getCno()+"&jcode=U");
 		}		
 		return mv;
 	}//cupdate
@@ -265,10 +265,10 @@ public class CompanyController {
 			vo.setCno(loginCno);
 			vo=service.selectOne(vo);
 			if(vo!=null) {
-				String fileName =vo.getComuUploadfile().substring(vo.getComuUploadfile().lastIndexOf("/")+1);
+				String fileName =vo.getComUploadfile().substring(vo.getComUploadfile().lastIndexOf("/")+1);
 				String realPath = request.getRealPath("/"); // deprecated Method
 				if (realPath.contains(".eclipse."))
-					 realPath = "C:/Users/skyla/Documents/MTest/MyWork/Spring03/src/main/webapp/resources/uploadImage"+fileName;
+					 realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage"+fileName;
 				else realPath += "resources\\uploadImage\\"+fileName;
 				File delF = new File(realPath);
 				if (delF.exists()) delF.delete();
@@ -280,7 +280,7 @@ public class CompanyController {
 				mv.setViewName("redirect:home");
 			}else {
 				rttr.addFlashAttribute("message", "회원탈퇴 오류입니다. 다시 시도하세요.");
-				mv.setViewName("redirect:mdetail?id="+vo.getCno());
+				mv.setViewName("redirect:cdetail?cno="+vo.getCno());
 			}
 		}else {
 			// 탈퇴 불가능 => message, loginForm.jsp 
@@ -289,9 +289,4 @@ public class CompanyController {
 		}
 		return mv;
 	}//cdelete
-
-
-
-	
-
 }//class

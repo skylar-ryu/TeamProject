@@ -18,8 +18,8 @@ function setClock() {
 <h1>사업자 회원 로그인화면</h1>
 <span>* Start : ${serverTime}</span><br>
 <span id="clock"></span><br>
-<c:if test="${loginID!=null}">
- => ${loginName} 님 안녕하세요 ~~<br>
+<c:if test="${loginCno!=null}">
+ => ${loginCname} 님 안녕하세요 ~~<br>
 </c:if>
 <c:if test="${message!=null}">
  => ${message}<br> 
@@ -30,16 +30,17 @@ function setClock() {
 	<a href="clogout">로그아웃</a>&nbsp;&nbsp;
 	<a href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
 <hr> -->
-<c:if test="${loginID==null}">
+<c:if test="${loginCno==null}">
 	<a href="cloginf">로그인</a>&nbsp;&nbsp;
 	<a href="cjoinf">회원가입</a>&nbsp;&nbsp;
 	
 </c:if>
-<c:if test="${loginID!=null}">
+<c:if test="${loginCno!=null}">
 	<a href="cdetail">MyInfo</a>&nbsp;&nbsp;
 	<a href="clogout">로그아웃</a>&nbsp;&nbsp;
 	<a href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
 </c:if>
+<a href="bcrypt">BCrypt</a><br>
 <hr>
 </body>
 </html>
