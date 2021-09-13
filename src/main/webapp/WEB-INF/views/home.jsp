@@ -40,7 +40,8 @@ function setClock() {
 	<a href="clogout">로그아웃</a>&nbsp;&nbsp;
 	<a href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
 </c:if>
-<a href="bcrypt">BCrypt</a><br>
+<!-- <a href="bcrypt">BCrypt</a><br> -->
 <hr>
+<a href="comlist">comList</a>&nbsp;
 </body>
 </html>

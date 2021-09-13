@@ -21,7 +21,7 @@
 		<td><input type="text" name="cname" size="20" value="${Apple.cname}"></td>
 	</tr>
 	<tr height="40"><td bgcolor="PaleGreen">카테고리</td>
-		<td><select name="ctype"    >
+		<td><select name="ctype">
 			<c:choose>
 			<c:when test="${Apple.ctype=='A'}">
 				<option value="A" selected>맛집</option>
@@ -71,6 +71,15 @@
 				<option value="E">전시</option>
 				<option value="F" selected>축제</option>
 			</c:when>
+			<c:when test="${Apple.ctype=='G'}">
+				<option value="G" selected>선택해주세요</option>
+				<option value="A">맛집</option>
+				<option value="B">도서관</option>
+				<option value="C">카페</option>
+				<option value="D">팝업스토어</option>
+				<option value="E">전시</option>
+				<option value="F">축제</option>
+			</c:when>
 			</c:choose>
 		</select></td>
 	</tr>
@@ -84,19 +93,16 @@
 		<td><input type="text" name="cdate" size="20" value="${Apple.cdate}"></td>
 	</tr>
 	<tr height="40"><td bgcolor="PaleGreen">이벤트기간</td>
-		<td><input type="text" name="cdate_s" size="20" value="${Apple.cdate_s}"></td>
+		<td><input type="date" name="cdate_s" size="20" value="${Apple.cdate_s}"></td>
 	</tr>
 	<tr height="40"><td bgcolor="PaleGreen">이벤트기간</td>
-		<td><input type="text" name="cdate_e" size="20" value="${Apple.cdate_e}"></td>
+		<td><input type="date" name="cdate_e" size="20" value="${Apple.cdate_e}"></td>
 	</tr>
 	<tr height="40"><td bgcolor="PaleGreen">영업시간</td>
-		<td><input type="text" name="period_s" size="20" value="${Apple.period_s}"></td>
+		<td><input type="time" name="period_s" size="20" value="${Apple.period_s}"></td>
 	</tr>
 	<tr height="40"><td bgcolor="PaleGreen">영업시간</td>
-		<td><input type="text" name="period_e" size="20" value="${Apple.period_e}"></td>
-	</tr>
-	<tr height="40"><td bgcolor="PaleGreen">이미지</td>
-		<td><input type="text" name="cimage" size="20" value="${Apple.cimage}"></td>
+		<td><input type="time" name="period_e" size="20" value="${Apple.period_e}"></td>
 	</tr>
 	<tr height="40"><td bgcolor="PaleGreen">전화번호</td>
 		<td><input type="text" name="ctel" size="20" value="${Apple.ctel}"></td>
@@ -110,7 +116,7 @@
 	<tr height="40"><td bgcolor="PaleGreen">주차</td>
 		<td><input type="text" name="cpark" size="20" value="${Apple.cpark}"></td>
 	</tr>
-	<tr height="40"><td bgcolor="PaleGreen">Image</td>
+	<tr height="40"><td bgcolor="PaleGreen">사진</td>
 		<td>
 		<img src="${Apple.comUploadfile}" class="select_img" width="100" height="100"><br>
 		<input type="hidden" name="comuploadfile" value="${Apple.comUploadfile}"><br>

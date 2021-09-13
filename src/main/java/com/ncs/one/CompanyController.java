@@ -40,7 +40,7 @@ public class CompanyController {
 		}else {
 			mv.addObject("message","출력할 자료가 1건도 없습니다.");
 		}
-		mv.setViewName("company/checkComList");
+		mv.setViewName("company/comList");
 		return mv;
 	}
 	
@@ -59,6 +59,20 @@ public class CompanyController {
 		mv.setViewName("download");
 		return mv;	
 	}
+	
+	@RequestMapping(value = "/comlist")
+	public ModelAndView comlist(ModelAndView mv) {
+
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comList");
+		return mv;
+	} //comlist
+
 	
 	// ** Cno 중복확인
 	@RequestMapping(value = "/cnoCheck")
@@ -160,7 +174,7 @@ public class CompanyController {
 	} //joinf
 	
 	// ** Join
-	@RequestMapping(value = "/join")
+	@RequestMapping(value = "/cjoin")
 	public ModelAndView join(HttpServletRequest request, ModelAndView mv, CompanyVO vo) throws IOException  {
 
 		String realPath = request.getRealPath("/"); // deprecated Method
@@ -180,12 +194,12 @@ public class CompanyController {
 		// 기본 Image 지정
 		String file1, file2 = "resources/uploadImage/basicman1.png";
 
-		MultipartFile comUploadfilef = vo.getComUploadfilef();
-		if ( comUploadfilef != null && !comUploadfilef.isEmpty() ) {
+		MultipartFile uploadfilef = vo.getComUploadfilef();
+		if ( uploadfilef != null && !uploadfilef.isEmpty() ) {
 			// Image 를 선택했음
-			file1 = realPath + comUploadfilef.getOriginalFilename(); //  전송된 File명 추출 & 연결
-			comUploadfilef.transferTo(new File(file1)); // real 위치에 전송된 File 붙여넣기
-			file2 = "resources/uploadImage/" + comUploadfilef.getOriginalFilename(); // Table 저장 경로
+			file1 = realPath + uploadfilef.getOriginalFilename(); //  전송된 File명 추출 & 연결
+			uploadfilef.transferTo(new File(file1)); // real 위치에 전송된 File 붙여넣기
+			file2 = "resources/uploadImage/" + uploadfilef.getOriginalFilename(); // Table 저장 경로
 		}
 
 		vo.setComUploadfile(file2); // Table 저장 경로 set
@@ -239,15 +253,15 @@ public class CompanyController {
 		// ** Password 암호화 => BCryptPasswordEncoder 적용 
 		vo.setCpw(passwordEncoder.encode(vo.getCpw()));
 
-		if (service.insert(vo) > 0) {
-			// Join 성공 -> 로그인 유도
+		if (service.update(vo) > 0) {
+			// Update 성공 -> mList
 			rttr.addFlashAttribute("message", "~~ 정보 수정 성공 ~~");
-			mv.setViewName("redirect:clogin");
+			mv.setViewName("redirect:cdetail");
 		}else {
-			// Join 실패 -> 재가입 유도
+			// Update 실패 -> 재수정 할 수 있도록 유도
 			rttr.addFlashAttribute("message", "~~ 정보수정 오류, 다시 하세요 ~~");
 			mv.setViewName("redirect:cdetail?cno="+vo.getCno()+"&jcode=U");
-		}		
+		}
 		return mv;
 	}//cupdate
 	

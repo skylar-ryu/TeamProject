@@ -28,7 +28,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	<context:component-scan base-package="com.ncs.one, service, util" />
+	<context:component-scan base-package="com.ncs.one, service, util,vo" />
 	
 	<!-- Mybatis 설정 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 		=> DAO 에서의 sql 구문을 xml 로 처리
@@ -49,6 +49,7 @@
 			- SqlSessionFactoryBean 에 의해 생성됨  -->
 	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
 		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="configLocation" value="classpath:/mybatis-config.xml" />
 		<!--
 		<beans:property name="configLocation" value="classpath:/mybatis-config.xml" />
 		 MyBatis 설정 파일의 위치를 지정
@@ -68,7 +69,7 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</beans:bean>	
-		
+
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
        ** Image Upload & Download
        1) Upload : MultipartResolver 설정 -->

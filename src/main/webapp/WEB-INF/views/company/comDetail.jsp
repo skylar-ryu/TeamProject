@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,23 @@
 		<td bgcolor="Lavender">사업자명</td><td>${Apple.cname}</td>
 	</tr>
 	<tr height="40">
-		<td bgcolor="Lavender">카테고리</td><td>${Apple.ctype}</td>
+		<td bgcolor="Lavender">카테고리</td>
+		<td ><c:choose>
+			<c:when test="${Apple.ctype=='A'}">
+				<option value="A" selected>맛집</option></c:when>
+			<c:when test="${Apple.ctype=='B'}">
+				<option value="B" selected>도서관</option></c:when>
+			<c:when test="${Apple.ctype=='C'}">
+				<option value="C" selected>카페</option></c:when>
+			<c:when test="${Apple.ctype=='D'}">
+				<option value="D" selected>팝업스토어</option></c:when>
+			<c:when test="${Apple.ctype=='E'}">
+				<option value="E" selected>전시</option></c:when>
+			<c:when test="${Apple.ctype=='F'}">
+				<option value="F" selected>축제</option></c:when>
+			<c:when test="${Apple.ctype=='G'}">
+				<option value="G" selected>선택카테고리 없음</option></c:when>
+		</c:choose></td>
 	</tr>
 	<tr height="40">
 		<td bgcolor="Lavender">상세내용</td><td>${Apple.cinfo}</td>
@@ -32,31 +49,34 @@
 		<td bgcolor="Lavender">휴무일</td><td>${Apple.cdate}</td>
 	</tr>
 	<tr height="40">
-		<td bgcolor="Lavender">이벤트기간</td><td>${Apple.cdate_s}</td>
+		<td bgcolor="Lavender">이벤트기간</td><td>${Apple.cdate_s}부터 ${Apple.cdate_e}까지</td>
 	</tr>
 	<tr height="40">
-		<td bgcolor="Lavender">이벤트기간</td><td>${Apple.cdate_e}</td>
-	</tr>
-	<tr height="40">
-		<td bgcolor="Lavender">영업시간</td><td>${Apple.period_s}</td>
-	</tr>
-	<tr height="40">
-		<td bgcolor="Lavender">영업시간</td><td>${Apple.period_e}</td>
-	</tr>
-	<tr height="40">
-		<td bgcolor="Lavender">이미지</td><td>${Apple.cimage}</td>
+		<td bgcolor="Lavender">영업시간</td><td>${Apple.period_s} - ${Apple.period_e}</td>
 	</tr>
 	<tr height="40">
 		<td bgcolor="Lavender">전화번호</td><td>${Apple.ctel}</td>
 	</tr>
 	<tr height="40">
-		<td bgcolor="Lavender">입장료</td><td>${Apple.cprice}</td>
+		<td bgcolor="Lavender">입장료</td>
+		<td ><c:choose>
+			<c:when test="${Apple.cprice==0}">
+				<option value="free">무료</option></c:when>
+			<c:when test="${Apple.cprice!=0}">
+				<option value="pay">${Apple.cprice}원</option></c:when>
+		</c:choose></td>
 	</tr>
 	<tr height="40">
 		<td bgcolor="Lavender">홈페이지</td><td>${Apple.csite}</td>
 	</tr>
 	<tr height="40">
-		<td bgcolor="Lavender">주차</td><td>${Apple.cpark}</td>
+		<td bgcolor="Lavender">주차</td>
+		<td ><c:choose>
+			<c:when test="${Apple.cpark=='Y'}">
+				<option value="Y">가능</option></c:when>
+			<c:when test="${Apple.cpark=='N'}">
+				<option value="N">불가능</option></c:when>
+		</c:choose></td>
 	</tr>
 	<tr height="40">
 		<td bgcolor="Lavender">Image</td>

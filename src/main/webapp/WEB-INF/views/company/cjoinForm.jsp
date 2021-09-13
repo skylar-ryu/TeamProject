@@ -89,7 +89,7 @@ function cnoDupCheck() {
 </head>
 <body>
 <h2>** 사업자 회원가입 **</h2>
-<form action="join" method="post" id="myForm" enctype="multipart/form-data">
+<form action="cjoin" method="post" id="myForm" enctype="multipart/form-data">
 <table>
   <tr height="40"><td bgcolor="LightGreen ">사업자번호</td>
       <td><input type="text" name="cno" id="cno" size="10">&nbsp;
@@ -135,11 +135,11 @@ function cnoDupCheck() {
 		<span id="cdtMessage" class="eMessage"></span></td>
   </tr>
   <tr height="40"><td bgcolor="LightGreen">이용시간</td>
-  	  <td><input type="time" name="period_s" id="period" value="" size="10"><br>
+  	  <td><input type="time" name="period_s" id="period_s"><br>
   	  	<span id="periMessage" class="eMessage"></span></td>
   </tr>
    <tr height="40"><td bgcolor="LightGreen">이용시간</td>
-  	  <td><input type="time" name="period_e" id="period" value="" size="10"><br>
+  	  <td><input type="time" name="period_e" id="period_e"><br>
   	  	<span id="periMessage" class="eMessage"></span></td>
   </tr>
   <tr height="40"><td bgcolor="LightGreen">전화번호</td>
@@ -150,7 +150,7 @@ function cnoDupCheck() {
   	  	<span id="priMessage" class="eMessage"></span></td>
   </tr>
   <tr height="40"><td bgcolor="LightGreen">홈페이지</td>
-  	  <td><input type="text" name="csite" id="csite" value="" size="10"><br>
+  	  <td><input type="text" name="csite" id="csite" value="" size="30"><br>
   </tr>
    <tr height="40"><td bgcolor="LightGreen">주차여부</td>
   	  <td><select name="cpark" id="cpark">

@@ -18,7 +18,6 @@ public class CompanyVO {
 	private String cdate_e;	
 	private String period_s;
 	private String period_e;	
-	private String cimage;
 	private String cprice;
 	private String csite;
 	private String cpark;
