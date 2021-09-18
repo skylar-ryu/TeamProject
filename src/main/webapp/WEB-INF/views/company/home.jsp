@@ -34,40 +34,18 @@ function setClock() {
 	<a href="clogout">로그아웃</a>&nbsp;&nbsp;
 	<a href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
 <hr> -->
-<!-- 일반회원 -->
-<div id="resultArea"></div>
-<hr>
-<c:if test="${loginID == null}">
-	<a href="loginf">일반회원 로그인</a>&nbsp;&nbsp;
-	<a href="joinf">일반회원 회원가입</a>&nbsp;&nbsp;
-</c:if>
-<c:if test="${loginID != null}">
-	<a href="pdetail">회원MyPage</a>&nbsp;&nbsp;
-	<a href="logout">로그아웃</a><br><hr>
-</c:if>
-<!-- 관리자일때만 메뉴확인가능 -->
-<c:if test="${loginID == 'admin'}">
-	<a href="pcplist">회원목록</a>
-</c:if>
-
-<!-- 사업자회원 -->
 <c:if test="${loginCno==null}">
-	<a href="cloginf">사업자회원 로그인</a>&nbsp;&nbsp;
-	<a href="cjoinf">사업자회원 회원가입</a>&nbsp;&nbsp;
+	<a href="cloginf">로그인</a>&nbsp;&nbsp;
+	<a href="cjoinf">회원가입</a>&nbsp;&nbsp;
+	
 </c:if>
 <c:if test="${loginCno!=null}">
-	<a href="cdetail">사업자MyInfo</a>&nbsp;&nbsp;
+	<a href="cdetail">MyInfo</a>&nbsp;&nbsp;
 	<a href="clogout">로그아웃</a>&nbsp;&nbsp;
 	<a href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
 </c:if>
 <!-- <a href="bcrypt">BCrypt</a><br> -->
 <hr>
 <a href="comlist">comList</a>&nbsp;
-<hr>
-<a href="aboard">Board</a>&nbsp;&nbsp;
-<a href="qinsertf">문의</a>&nbsp;&nbsp;
-<hr>
-<a href="rmainf">예약하기 메인</a>&nbsp;&nbsp;
-
 </body>
 </html>

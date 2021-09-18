@@ -175,7 +175,7 @@ public class CompanyController {
 	
 	// ** Join
 	@RequestMapping(value = "/cjoin")
-	public ModelAndView join(HttpServletRequest request, ModelAndView mv, CompanyVO vo) throws IOException  {
+	public ModelAndView cjoin(HttpServletRequest request, ModelAndView mv, CompanyVO vo) throws IOException  {
 
 		String realPath = request.getRealPath("/"); // deprecated Method
 		System.out.println("** realPath => "+realPath);

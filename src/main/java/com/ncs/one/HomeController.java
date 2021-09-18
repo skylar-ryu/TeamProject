@@ -51,4 +51,11 @@ public class HomeController {
 		mv.setViewName("errorPage/exception_403");
 		return mv;
 	}//error
+	
+	// ** AjaxTest Main Form	
+	@RequestMapping(value = "/aboard")
+	public ModelAndView atestf(ModelAndView mv) {
+		mv.setViewName("aboardf");
+		return mv;
+	} //Board
 }//class
