@@ -15,7 +15,6 @@ function cnoOK() {
 	opener.document.getElementById('submit').disabled='';
 	opener.document.getElementById('cnoDup').disabled='disabled';
 	opener.$('#cno').prop('readonly',true);
-	opener.$('#cpw').focus();
 	window.close(); 
 } //cnoOK
 </script>

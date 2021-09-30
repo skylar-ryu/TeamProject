@@ -16,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import criTest.Criteria;
+import criTest.PageMaker;
+import criTest.SearchCriteria;
 import service.CompanyService;
 import vo.CompanyVO;
 
@@ -27,6 +30,21 @@ public class CompanyController {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	
+	// ** 업체상세페이지 : 페이지나누기
+	@RequestMapping(value = "/compaging")
+	public ModelAndView compaging(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
+		cri.setSnoEno();
+		mv.addObject("Banana",service.criPList(cri));
+		
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRowCount(service.totalRowsCount());
+		
+		mv.addObject("pageMaker",pageMaker);
+		mv.setViewName("company/comContent/comContent_Seoul");
+		return mv;
+	} //mcplist
 	
 	// ** Check_Company
 	@RequestMapping(value="/cchecklist")
@@ -80,11 +98,16 @@ public class CompanyController {
 		mv.addObject("newCno", vo.getCno());
 		if (service.selectOne(vo) != null) {
 			mv.addObject("cnoUse", "F"); // 사용불가
-		}else mv.addObject("cnoUse", "T"); // 사용가능
-		mv.setViewName("company/cnoDupCheck");
+			mv.setViewName("company/cjoinForm00 ");
+		}else { 
+			mv.addObject("cnoUse", "T"); // 사용가능
+			mv.setViewName("company/cjoinForm01");
+		}		
 		return mv;
 	} //cnoCheck
 	
+	
+	//---------------------------------------------------------------------------------------------------
 	// ** Loginf
 	@RequestMapping(value = "/cloginf")
 	public ModelAndView cloginf(ModelAndView mv) {
@@ -118,10 +141,9 @@ public class CompanyController {
 			mv.setViewName("company/cloginForm");
 		}
 		return mv;
-	} //Spring login
+	} //login
 	
-//	public modelandView
-	
+	// ** Logout
 	@RequestMapping(value = "/clogout")
 	public ModelAndView clogout(HttpServletRequest request, ModelAndView mv, RedirectAttributes rttr) {
 		HttpSession session = request.getSession(false);
@@ -134,7 +156,100 @@ public class CompanyController {
 	} //logout
 	
 	
-	// ** Company detail : 내정보보기
+	//---------------------------------------------------------------------------------------------------
+	// ** 업체콘텐츠 지역별로 보기 
+	// ** Company Content_main화면
+	@RequestMapping(value = "/ccontent_main")
+	public ModelAndView ccontent_main(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comContent/comContent_main");
+		return mv;
+	}//cinfo_main
+	
+	// ** Company Content : 서울
+	@RequestMapping(value = "/ccontent_seoul")
+	public ModelAndView ccontent_seoul(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comContent/comContent_Seoul");
+		return mv;
+	}//cinfo_main
+	
+	
+	
+	
+	@RequestMapping(value = "/cinfo_main")
+	public ModelAndView cinfo_main(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
+		
+		HttpSession session =request.getSession(false);
+		if(session !=null && session.getAttribute("loginCno")!=null) {
+			vo.setCno((String)session.getAttribute("loginCno"));
+			
+			if(request.getParameter("cno")!=null) vo.setCno(request.getParameter("cno"));
+			vo=service.selectOne(vo);
+			if(vo!=null) {
+				if("U".equals(request.getParameter("jcode"))) {
+					mv.setViewName("company/comUpdateForm");
+					vo.setCpw((String)session.getAttribute("loginCpw"));
+				}else {
+					mv.setViewName("company/comInfo_main");
+					vo.setCpw("********");
+				}
+				mv.addObject("Apple",vo);
+			}else {
+				mv.addObject("message","~~ 정보를 찾을 수 없습니다, 로그인 후 이용하세요 ~~");
+				mv.setViewName("company/cloginForm");
+			}
+		}else {
+			// 로그인 정보 없음
+			mv.addObject("message","~~ 로그인 정보 없습니다, 로그인 후 이용하세요 ~~");
+			mv.setViewName("company/cloginForm");
+		}		
+		return mv;
+	}//cinfo_main
+	
+	// ** Company Info_main화면
+		@RequestMapping(value = "/cinfo_cinfo")
+		public ModelAndView cinfo_cinfo(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
+			
+			HttpSession session =request.getSession(false);
+			if(session !=null && session.getAttribute("loginCno")!=null) {
+				vo.setCno((String)session.getAttribute("loginCno"));
+				
+				if(request.getParameter("cno")!=null) vo.setCno(request.getParameter("cno"));
+				vo=service.selectOne(vo);
+				if(vo!=null) {
+					if("U".equals(request.getParameter("jcode"))) {
+						mv.setViewName("company/comUpdateForm");
+						vo.setCpw((String)session.getAttribute("loginCpw"));
+					}else {
+						mv.setViewName("company/comInfo_Cinfo");
+						vo.setCpw("********");
+					}
+					mv.addObject("Apple",vo);
+				}else {
+					mv.addObject("message","~~ 정보를 찾을 수 없습니다, 로그인 후 이용하세요 ~~");
+					mv.setViewName("company/cloginForm");
+				}
+			}else {
+				// 로그인 정보 없음
+				mv.addObject("message","~~ 로그인 정보 없습니다, 로그인 후 이용하세요 ~~");
+				mv.setViewName("company/cloginForm");
+			}		
+			return mv;
+		}//cinfo_cinfo
+	
 	@RequestMapping(value = "/cdetail")
 	public ModelAndView cdetail(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
 		
@@ -149,7 +264,7 @@ public class CompanyController {
 					mv.setViewName("company/comUpdateForm");
 					vo.setCpw((String)session.getAttribute("loginCpw"));
 				}else {
-					mv.setViewName("company/comDetail");
+					mv.setViewName("company/comDetail_OG");
 					vo.setCpw("********");
 				}
 				mv.addObject("Apple",vo);
@@ -163,13 +278,45 @@ public class CompanyController {
 			mv.setViewName("company/cloginForm");
 		}		
 		return mv;
-	}//cdetail	
+	}//cinfo_main
+		
+	@RequestMapping(value = "/cdetail_main")
+	public ModelAndView cdetail_main(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comDetail_main");
+		return mv;
+	}//cinfo_main
 	
 	
+	@RequestMapping(value = "/cdetail01")
+	public ModelAndView cdetail01(HttpServletRequest request, ModelAndView mv, CompanyVO vo, RedirectAttributes rttr) {
+		
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			vo = service.selectOne(vo);
+			if (vo != null) {
+				request.setAttribute("Apple", vo);
+				mv.setViewName("company/comDetail");  
+			}else {
+				rttr.addFlashAttribute("message", "~~ 글번호에 해당하는 업체를 찾을 수 없습니다 ~~");
+				mv.setViewName("redirect:comDetail_main"); 
+			}
+		}
+		return mv;
+	} //cdetail01
+	
+	
+	//---------------------------------------------------------------------------------------------------
 	// ** Joinf
 	@RequestMapping(value = "/cjoinf")
 	public ModelAndView joinf(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm");
+		mv.setViewName("company/cjoinForm00");
 		return mv;
 	} //joinf
 	
@@ -183,7 +330,7 @@ public class CompanyController {
 		// ** 위 의 위치를 이용해서 실제 저장위치 확인 
 		// => 개발중인지, 배포했는지 에 따라 결정
 		if (realPath.contains(".eclipse."))
-			realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage";
+			realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage/";
 		else realPath += "resources\\uploadImage\\"; 
 
 		// ** 폴더 만들기 (File 클래스활용)
@@ -194,7 +341,7 @@ public class CompanyController {
 		// 기본 Image 지정
 		String file1, file2 = "resources/uploadImage/basicman1.png";
 
-		MultipartFile uploadfilef = vo.getComUploadfilef();
+		MultipartFile uploadfilef = vo.getComuploadfilef();
 		if ( uploadfilef != null && !uploadfilef.isEmpty() ) {
 			// Image 를 선택했음
 			file1 = realPath + uploadfilef.getOriginalFilename(); //  전송된 File명 추출 & 연결
@@ -202,7 +349,7 @@ public class CompanyController {
 			file2 = "resources/uploadImage/" + uploadfilef.getOriginalFilename(); // Table 저장 경로
 		}
 
-		vo.setComUploadfile(file2); // Table 저장 경로 set
+		vo.setComuploadfile(file2); // Table 저장 경로 set
 
 		// ** Password 암호화 => BCryptPasswordEncoder 적용 
 		vo.setCpw(passwordEncoder.encode(vo.getCpw()));
@@ -221,13 +368,29 @@ public class CompanyController {
 	
 	
 	// ** Company Update : 사업자 정보수정
+		@RequestMapping(value = "/cupdate_info")
+		public ModelAndView cupdate_info(HttpServletRequest request, ModelAndView mv,
+							CompanyVO vo, RedirectAttributes rttr) throws IOException {
+			if (service.update(vo) > 0) {
+				// Update 성공 -> mList
+				rttr.addFlashAttribute("message", "~~ 정보 수정 성공 ~~");
+				mv.setViewName("redirect:cinfo_cinfo");
+			}else {
+				// Update 실패 -> 재수정 할 수 있도록 유도
+				rttr.addFlashAttribute("message", "~~ 정보수정 오류, 다시 하세요 ~~");
+				mv.setViewName("redirect:cinfo_cinfo?cno="+vo.getCno()+"&jcode=U");
+			}
+			return mv;
+		}//cupdate_info
+	
+	// ** Company Update : 사업자 정보수정
 	@RequestMapping(value = "/cupdate")
 	public ModelAndView cupdate(HttpServletRequest request, ModelAndView mv,
 						CompanyVO vo, RedirectAttributes rttr) throws IOException {
 		
 		String realPath = request.getRealPath("/");
 		if (realPath.contains(".eclipse."))
-			 realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage";
+			 realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage/";
 		else realPath += "resources\\uploadImage\\";
 		
 		// * 폴더 만들기 (위의 저장경로에 폴더가 없을 경우)
@@ -237,26 +400,26 @@ public class CompanyController {
 		// * 기본 Image 지정
 		String file1, file2 = "resources/uploadImage/basicman1.png";
 		
-		MultipartFile comUploadfilef = vo.getComUploadfilef();
-		if ( comUploadfilef != null && !comUploadfilef.isEmpty() ) {
+		MultipartFile comuploadfilef = vo.getComuploadfilef();
+		if ( comuploadfilef != null && !comuploadfilef.isEmpty() ) {
 			// 변경할시 : Image 를 선택했음
-			file1 = realPath + comUploadfilef.getOriginalFilename(); //  전송된 File명 추출 & 연결
-			comUploadfilef.transferTo(new File(file1)); // real 위치에 전송된 File 붙여넣기
-			file2 = "resources/uploadImage/" + comUploadfilef.getOriginalFilename(); // Table 저장 경로
+			file1 = realPath + comuploadfilef.getOriginalFilename(); //  전송된 File명 추출 & 연결
+			comuploadfilef.transferTo(new File(file1)); // real 위치에 전송된 File 붙여넣기
+			file2 = "resources/uploadImage/" + comuploadfilef.getOriginalFilename(); // Table 저장 경로
 		}else {
 			// 변경없을시 : 이전과 동일하게 처리 
-			file2 = vo.getComUploadfile();
+			file2 = vo.getComuploadfile();
 		}
 
-		vo.setComUploadfile(file2); // Table 저장 경로 set
+		vo.setComuploadfile(file2); // Table 저장 경로 set
 
 		// ** Password 암호화 => BCryptPasswordEncoder 적용 
 		vo.setCpw(passwordEncoder.encode(vo.getCpw()));
 
 		if (service.update(vo) > 0) {
-			// Update 성공 -> mList
+			// Update 성공 -> 상세정보
 			rttr.addFlashAttribute("message", "~~ 정보 수정 성공 ~~");
-			mv.setViewName("redirect:cdetail");
+			mv.setViewName("home");
 		}else {
 			// Update 실패 -> 재수정 할 수 있도록 유도
 			rttr.addFlashAttribute("message", "~~ 정보수정 오류, 다시 하세요 ~~");
@@ -279,10 +442,10 @@ public class CompanyController {
 			vo.setCno(loginCno);
 			vo=service.selectOne(vo);
 			if(vo!=null) {
-				String fileName =vo.getComUploadfile().substring(vo.getComUploadfile().lastIndexOf("/")+1);
+				String fileName =vo.getComuploadfile().substring(vo.getComuploadfile().lastIndexOf("/")+1);
 				String realPath = request.getRealPath("/"); // deprecated Method
 				if (realPath.contains(".eclipse."))
-					 realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage"+fileName;
+					 realPath = "C:/Users/skyla/Documents/MTest/MyWork/TeamProject/src/main/webapp/resources/uploadImage/"+fileName;
 				else realPath += "resources\\uploadImage\\"+fileName;
 				File delF = new File(realPath);
 				if (delF.exists()) delF.delete();
@@ -303,4 +466,40 @@ public class CompanyController {
 		}
 		return mv;
 	}//cdelete
+	
+	// ** Loginf00
+	@RequestMapping(value = "/cjoinf00")
+	public ModelAndView cloginf00(ModelAndView mv) {
+		mv.setViewName("company/cjoinForm00");
+		return mv;
+	} //loginf00
+	// ** Loginf00
+	@RequestMapping(value = "/cjoinf01")
+	public ModelAndView cloginf01(ModelAndView mv) {
+		mv.setViewName("company/cjoinForm01");
+		return mv;
+	} //loginf00
+	// ** Loginf00
+	@RequestMapping(value = "/cjoinf02")
+	public ModelAndView cloginf02(ModelAndView mv) {
+		mv.setViewName("company/cjoinForm02");
+		return mv;
+	} //loginf00
+	// ** Loginf00
+	@RequestMapping(value = "/cjoinf03")
+	public ModelAndView cloginf03(ModelAndView mv) {
+		mv.setViewName("company/cjoinForm03");
+		return mv;
+	} //loginf00
+	@RequestMapping(value = "/cjoinf04")
+	public ModelAndView cloginf04(ModelAndView mv) {
+		mv.setViewName("company/cjoinForm_test");
+		return mv;
+	} //loginf00
+	
+	@RequestMapping(value = "/cjoinf_clone2")
+	public ModelAndView cjoinf_clone2(ModelAndView mv) {
+		mv.setViewName("company/cjoinForm_clone2");
+		return mv;
+	} //cjoinf_clone
 }//class

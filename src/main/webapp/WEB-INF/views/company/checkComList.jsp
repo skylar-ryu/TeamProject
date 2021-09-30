@@ -36,7 +36,7 @@
 <tr height="30" align="center">
 	<td>${list.id}</td><td>${list.password}</td><td>${list.name}</td><td>${list.lev}</td>
 	<td>${list.birthd}</td><td>${list.point}</td><td>${list.weight}</td><td>${list.rid}</td>
-	<td><img src="${list.uploadfile}" width=100 height=100></td>
+	<td><img src="${list.comuploadfile}" width=100 height=100></td>
 </tr>
 </c:forEach>
 </table>

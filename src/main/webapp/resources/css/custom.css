@@ -1,0 +1,10 @@
+* {	font-family: 'Noto Sans KR', sans-serif;}
+
+
+.cjoin_cnoNum .guide_txt span{padding-left:14px;color:#aeaeae;font-size:12px;font-weight:normal}
+.cjoin_cnoNum{overflow:hidden;position:relative;top:0;left:0;width:540px;height:57px;border:5px solid #e5e5e5;font-size:14px;font-weight:bold;color:#000;text-align:center}
+.cjoin_cnoNum input{height:14px;padding:20px 30px;border:0;background:#fff;font-size:14px;font-weight:normal;color:#000}
+.cjoin_cnoNum .guide_txt{position:absolute;top:6px;left:0;width:510px;height:57px;margin-top:-5px;padding-left:30px;background:#fff;line-height:57px;text-align:center}
+.cjoin_cnoNum .guide_txt.blind{top:-70px;border:1px solid #f00}
+.cjoin_cnoNum label{font-size:14px;font-weight:bold;color:#999}
+.cjoin_cnoNum .placeholder{padding-left:14px;color:#aeaeae;font-size:12px;font-weight:normal}

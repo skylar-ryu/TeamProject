@@ -99,7 +99,7 @@ $(function() {
 			<c:when test="${list.cpark=='N'}">
 				<option value="N">불가능</option></c:when>
 	</c:choose></td>
-	<td><img src="${list.comUploadfile}" width="100" height="100"></td>
+	<td><img src="${list.comuploadfile}" width="100" height="100"></td>
 </tr>
 </c:forEach>
 </table>

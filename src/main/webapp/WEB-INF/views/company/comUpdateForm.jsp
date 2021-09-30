@@ -118,11 +118,11 @@
 	</tr>
 	<tr height="40"><td bgcolor="PaleGreen">사진</td>
 		<td>
-		<img src="${Apple.comUploadfile}" class="select_img" width="100" height="100"><br>
-		<input type="hidden" name="comuploadfile" value="${Apple.comUploadfile}"><br>
+		<img src="${Apple.comuploadfile}" class="select_img" width="100" height="100"><br>
+		<input type="hidden" name="comuploadfile" value="${Apple.comuploadfile}"><br>
 		<input type="file" name="comuploadfilef" id="comuploadfilef">
 		<script>
-		$('#comUploadfilef').change(function(){
+		$('#comuploadfilef').change(function(){
 			if(this.files && this.files[0]) {
 				var reader = new FileReader;
 		 			reader.onload = function(e) {

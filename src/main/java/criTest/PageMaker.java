@@ -24,12 +24,12 @@ public class PageMaker {
 	private int lastPageNo;
 	// 출력 가능한 마지막 PageNo (totalRowCount, rowsPerPage 로 계산)
 	
-	//private Criteria cri;     // ver01
-	private SearchCriteria cri; // ver02
+	private Criteria cri;     // ver01
+	private SearchCriteria scri; // ver02
 	
 	// 1) 필요한 값 set
-	//public void setCri(Criteria cri) {  //  ver01
-	public void setCri(SearchCriteria cri) {
+	public void setCri(Criteria cri) {  //  ver01
+	//public void setCri(SearchCriteria cri) {
 		this.cri=cri;
 	}
 	public void setTotalRowCount(int totalRowCount) {
@@ -95,9 +95,9 @@ public class PageMaker {
 		UriComponents uriComponents = 
 				UriComponentsBuilder.newInstance().
 				queryParam("currPage", currPage).  // ?currPage=4
-				queryParam("rowsPerPage",cri.getRowsPerPage()). 
-				queryParam("searchType",cri.getSearchType()).
-				queryParam("keyword",cri.getKeyword()).
+				queryParam("rowsPerPage",scri.getRowsPerPage()). 
+				queryParam("searchType",scri.getSearchType()).
+				queryParam("keyword",scri.getKeyword()).
 				build();
 		return uriComponents.toString();
 	} //searchQuery	
