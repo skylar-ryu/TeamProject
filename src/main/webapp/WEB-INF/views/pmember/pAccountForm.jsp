@@ -5,13 +5,13 @@
 <html>
 <head>
 	<meta charset="UTF-8">
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>회원목록 관리</title>
-	<meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>account</title>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-       <!-- Price Slider Stylesheets -->
-    <link rel="stylesheet" href="resources/vendor/nouislider/nouislider.css">
+    <meta name="robots" content="noindex">
+    <!-- Price Slider Stylesheets -->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/vendor/nouislider/nouislider.css">
     <!-- Google fonts - Playfair Display-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
     <!-- Google fonts - Poppins-->
@@ -19,42 +19,22 @@
     <!-- swiper-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
     <!-- Magnigic Popup-->
-    <link rel="stylesheet" href="resources/vendor/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/vendor/magnific-popup/magnific-popup.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="resources/css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/css/style.default.222cad84.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="resources/css/custom.css">
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/css/custom.0a822280.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/directory/2-0-1/img/favicon.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
-<script src="resources/myLib/jquery-3.2.1.min.js"></script>
-<script>
-$(function() {
-	// SearchType이 '----'면 keyword 클리어
-	$('#searchType').change(function() {
-		if ($(this).val()=='n') $('#keyword').val('');
-	}); //change
-	
-	// 검색 후 요청
-	$('#searchBtn').on("click", function(){
-		self.location = "pcplist"
-			+"${pageMaker.makeQuery(1)}"
-			+"&searchType="
-			+$('#searchType').val()
-			+'&keyword='
-			+$('#keyword').val()		
-	}); //on_click
-}); //ready
-</script>
-</head>
-<body style="padding-top: 72px;">
- <header class="header">
-         <!-- Navbar-->
+  </head>
+  <body style="padding-top: 72px;">
+    <header class="header">
+          <!-- Navbar-->
       <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
         <div class="container-fluid">
           <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home"><img src="resources/img/logo.svg" alt="Directory logo"></a>
@@ -110,79 +90,96 @@ $(function() {
         </div>
       </nav>
       <!-- /Navbar -->
-<ul class="nav nav-tabs ">
-  <li class="nav-item">
-    <a class="nav-link active" href="loginf">일반회원</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link" href="cchecklist">사업자회원</a>
-  </li>
-</ul>
     </header>
     <section class="py-5">
       <div class="container">
-       <!-- Breadcrumbs -->
+        <!-- Breadcrumbs -->
         <ol class="breadcrumb ps-0  justify-content-start">
           <li class="breadcrumb-item"><a href="home">Home</a></li>
-          <li class="breadcrumb-item"><a href="paccountf">Account</a></li>
-          <li class="breadcrumb-item active">MemberList</li>
+          <li class="breadcrumb-item active">Mypage</li>
         </ol>
-        <div class="d-flex justify-content-between align-items-center mb-5">
-          <h1 class="hero-heading mb-0">회원목록 관리</h1>
-        </div> 
-         <div class="d-flex justify-content-between align-items-end mb-4">        
-		<div id="searchBar" style="display: inline-block; margin: 0 5px; float: right;"><form class="d-flex">  
-		<select name="searchType" id="searchType" class="selectpicker me-3 mb-3 mb-lg-0" data-style="btn-selectpicker">
-			<option value="n" <c:out value="${pageMaker.cri.searchType == null ? 'selected' : ''}"/> >----</option>
-			<option value="i" <c:out value="${pageMaker.cri.searchType == 'i' ? 'selected' : ''}"/> >ID</option>
-			<option value="m" <c:out value="${pageMaker.cri.searchType == 'm' ? 'selected' : ''}"/> >Name</option>
-			<option value="b" <c:out value="${pageMaker.cri.searchType == 'b' ? 'selected' : ''}"/> >Birth</option>
-			<option value="t" <c:out value="${pageMaker.cri.searchType == 't' ? 'selected' : ''}"/> >Tel</option>
-			<option value="a" <c:out value="${pageMaker.cri.searchType == 'a' ? 'selected' : ''}"/> >Addr</option>
-		</select>
-			<input class="form-control me-2" aria-label="Search" type="search" name="keyword" id="keyword" value="${pageMaker.cri.keyword}">
-			<button id="searchBtn" class="btn btn-dark">Search</button></form>
-		</div>
-		</div>	
-<table class="table table-hover">
-	<tr height="35" align="center" bgcolor="Beige">
-		<th>ID</th><th>Name</th><th>Birth</th><th>Tel</th><th>Email</th><th>Addr</th><th>Delete</th>
-	</tr>
-	<c:forEach var="list" items="${Banana}">
-		<tr height="30" align="center">
-			<td><a href="pdetail?id=${list.id}">${list.id}</a></td>
-			<td>${list.name}</td><td>${list.birth}</td>
-			<td>${list.tel}</td><td>${list.email}</td><td>${list.addr}</td><td><button type="button" class="btn btn-outline-dark" onclick="location.href='adelete?id=${Apple.id}'">삭제</button></td>
-		</tr>
-	</c:forEach>
-</table><br>
-
-   <!-- Pagination : Criteria 적용 -->
-    <nav aria-label="Page navigation example">
-       <ul class="pagination pagination-template d-flex justify-content-center">
-	<!-- 1) First << , Prev < 처리 -->
-	<c:if test="${pageMaker.prev && pageMaker.spageNo > 1}">
-		<li class="page-item"><a class="page-link" href="pcplist${pageMaker.searchQuery(1)}"><<</a></li>
-		<li class="page-item"><a class="page-link" href="pcplist${pageMaker.searchQuery(pageMaker.spageNo-1)}"><i class="fa fa-angle-left"></i></a></li>
-	</c:if>
-	
-	<!-- 2) sPageNo ~ ePageNo까지, displayPageNo만큼 표시 -->
-	<c:forEach var="i" begin="${pageMaker.spageNo}" end="${pageMaker.epageNo}">
-		<c:if test="${i == pageMaker.cri.currPage}">
-			<li class="page-item active"><a class="page-link">${i}</a></li>
-		</c:if>
-		<c:if test ="${i != pageMaker.cri.currPage }">
-			<li class="page-item "><a class="page-link" href ="pcplist${pageMaker.searchQuery(i)}">${i}</a></li>
-		</c:if>
-	</c:forEach>
-	
-	<!-- 3) Next > , Last >> 처리 -->
-	<c:if test="${pageMaker.next && pageMaker.epageNo > 0}">
-		<li class="page-item"><a class="page-link" href="pcplist${pageMaker.searchQuery(pageMaker.epageNo+1)}"><i class="fa fa-angle-right"></i></a></li>
-		<li class="page-item"><a class="page-link" href="pcplist${pageMaker.searchQuery(pageMaker.lastPageNo)}">>></a></li>
-	</c:if>
-       </ul>
-      </nav>
+        <h1 class="hero-heading mb-0">MYPAGE</h1>
+        <p class="text-muted mb-5"></p>
+        <div class="row">
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#identity-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="pdetail">Personal info</a></h5>
+                <p class="text-muted card-text text-sm">개인정보를 관리하는 공간</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#password-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">예약 조회</a></h5>
+                <p class="text-muted card-text text-sm">  </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#pay-by-card-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">공사중</a></h5>
+                <p class="text-muted card-text text-sm">  </p>
+              </div>
+            </div>
+          </div>     
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#diary-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="myboardf">게시판</a></h5>
+                <p class="text-muted card-text text-sm">작성한 게시물을 관리하는 공간</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#setting-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="pdeletef">회원탈퇴</a></h5>
+                <p class="text-muted card-text text-sm"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#chat-app-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">공사중</a></h5>
+                <p class="text-muted card-text text-sm">  </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     <!-- Footer-->
@@ -263,12 +260,12 @@ $(function() {
         <form class="mb-3">
           <select class="form-select style-switch-select" name="colour" id="colour">
             <option value="">select colour variant</option>
-            <option value="resources/css/style.default.222cad84.css">blue</option>
-            <option value="resources/css/style.pink.8e944c0e.css">pink</option>
-            <option value="resources/css/style.green.dbb19695.css">green</option>
-            <option value="resources/css/style.red.25441cbe.css">red</option>
-            <option value="resources/css/style.violet.46bbf1a3.css">violet</option>
-            <option value="resources/css/style.sea.e2d18689.css">sea</option>
+            <option value="css/style.default.222cad84.css">blue</option>
+            <option value="css/style.pink.8e944c0e.css">pink</option>
+            <option value="css/style.green.dbb19695.css">green</option>
+            <option value="css/style.red.25441cbe.css">red</option>
+            <option value="css/style.violet.46bbf1a3.css">violet</option>
+            <option value="css/style.sea.e2d18689.css">sea</option>
           </select>
         </form>
         <p class="text-muted text-xs mb-0">Stylesheet switching in this demo is done with JavaScript and can cause a blink while page loads. This will not happen in your production code.</p>
@@ -319,5 +316,5 @@ $(function() {
     <script>var basePath = ''</script>
     <!-- Main Theme JS file    -->
     <script src="resources/js/theme.0750373b.js"></script>
-</body>
+  </body>
 </html>

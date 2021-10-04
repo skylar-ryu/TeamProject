@@ -165,11 +165,11 @@ $(function() {
           </div>
           <!-- 3. seoul-->
           <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="ccontent_seoul"><img class="img-fluid card-img-top" src="resources/img/seoul_main.jpg" alt="..." width="200"/></a>
+            <div class="card shadow border-0 h-100"><a href="ccontent_jeju"><img class="img-fluid card-img-top" src="resources/img/jeju_main.jpg" alt="..." width="200"/></a>
               <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Your Seoul Goes On </p>
-                <h5 class="my-2"><a class="text-dark" href="ccontent_seoul">제주 Jeju</a></h5>
+                <h5 class="my-2"><a class="text-dark" href="ccontent_jeju">제주 Jeju</a></h5>
                 <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 제주시 · 서귀포 · 애월 </p>
-                <p class="my-2 text-muted text-sm">섬 전체가 하나의 거대한 관광자원인 제주도. 파도가 넘보는 주상절리와 바다 위 산책로인 용머리 해안은 제주에서만 볼 수 있는 천혜의 자연경관으로 손꼽힙니다. </p><a class="btn btn-link ps-0" href="ccontent_seoul">서울지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
+                <p class="my-2 text-muted text-sm">섬 전체가 하나의 거대한 관광자원인 제주도. 파도가 넘보는 주상절리와 바다 위 산책로인 용머리 해안은 제주에서만 볼 수 있는 천혜의 자연경관으로 손꼽힙니다. </p><a class="btn btn-link ps-0" href="ccontent_jeju">제주지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
               </div>
             </div>
           </div>

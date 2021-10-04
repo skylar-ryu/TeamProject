@@ -1,6 +1,6 @@
 function cnoCheck(){
 	var cno=$('#cno').val();
-	if (cno.replace(/[0-9]/gi,'').length > 0) {
+	if (cno.replace(/[0-9,!-*]/gi,'').length > 0) {
 		$('#cnoMessage').html(' ~~ 사업자번호는 숫자로만 입력 하세요 ~~');
 		return false;
 	}else if (cno.length>10) {

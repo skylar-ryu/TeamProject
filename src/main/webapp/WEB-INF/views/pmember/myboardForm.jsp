@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>회원목록 관리</title>
+	<title>My Board</title>
 	<meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -33,24 +32,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
-<script>
-$(function() {
-	// SearchType이 '----'면 keyword 클리어
-	$('#searchType').change(function() {
-		if ($(this).val()=='n') $('#keyword').val('');
-	}); //change
-	
-	// 검색 후 요청
-	$('#searchBtn').on("click", function(){
-		self.location = "pcplist"
-			+"${pageMaker.makeQuery(1)}"
-			+"&searchType="
-			+$('#searchType').val()
-			+'&keyword='
-			+$('#keyword').val()		
-	}); //on_click
-}); //ready
-</script>
 </head>
 <body style="padding-top: 72px;">
  <header class="header">
@@ -110,49 +91,27 @@ $(function() {
         </div>
       </nav>
       <!-- /Navbar -->
-<ul class="nav nav-tabs ">
-  <li class="nav-item">
-    <a class="nav-link active" href="loginf">일반회원</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link" href="cchecklist">사업자회원</a>
-  </li>
-</ul>
-    </header>
-    <section class="py-5">
+</header>
+<section class="py-5">
       <div class="container">
        <!-- Breadcrumbs -->
         <ol class="breadcrumb ps-0  justify-content-start">
           <li class="breadcrumb-item"><a href="home">Home</a></li>
           <li class="breadcrumb-item"><a href="paccountf">Account</a></li>
-          <li class="breadcrumb-item active">MemberList</li>
+          <li class="breadcrumb-item active">My Board</li>
         </ol>
         <div class="d-flex justify-content-between align-items-center mb-5">
-          <h1 class="hero-heading mb-0">회원목록 관리</h1>
+          <h1 class="hero-heading mb-0">My Board</h1>
         </div> 
-         <div class="d-flex justify-content-between align-items-end mb-4">        
-		<div id="searchBar" style="display: inline-block; margin: 0 5px; float: right;"><form class="d-flex">  
-		<select name="searchType" id="searchType" class="selectpicker me-3 mb-3 mb-lg-0" data-style="btn-selectpicker">
-			<option value="n" <c:out value="${pageMaker.cri.searchType == null ? 'selected' : ''}"/> >----</option>
-			<option value="i" <c:out value="${pageMaker.cri.searchType == 'i' ? 'selected' : ''}"/> >ID</option>
-			<option value="m" <c:out value="${pageMaker.cri.searchType == 'm' ? 'selected' : ''}"/> >Name</option>
-			<option value="b" <c:out value="${pageMaker.cri.searchType == 'b' ? 'selected' : ''}"/> >Birth</option>
-			<option value="t" <c:out value="${pageMaker.cri.searchType == 't' ? 'selected' : ''}"/> >Tel</option>
-			<option value="a" <c:out value="${pageMaker.cri.searchType == 'a' ? 'selected' : ''}"/> >Addr</option>
-		</select>
-			<input class="form-control me-2" aria-label="Search" type="search" name="keyword" id="keyword" value="${pageMaker.cri.keyword}">
-			<button id="searchBtn" class="btn btn-dark">Search</button></form>
-		</div>
-		</div>	
-<table class="table table-hover">
+	<table class="table table-hover">
 	<tr height="35" align="center" bgcolor="Beige">
-		<th>ID</th><th>Name</th><th>Birth</th><th>Tel</th><th>Email</th><th>Addr</th><th>Delete</th>
+		<th>번호</th><th>작성자</th><th>제목</th><th>작성일</th>
 	</tr>
 	<c:forEach var="list" items="${Banana}">
 		<tr height="30" align="center">
-			<td><a href="pdetail?id=${list.id}">${list.id}</a></td>
-			<td>${list.name}</td><td>${list.birth}</td>
-			<td>${list.tel}</td><td>${list.email}</td><td>${list.addr}</td><td><button type="button" class="btn btn-outline-dark" onclick="location.href='adelete?id=${Apple.id}'">삭제</button></td>
+			<td>${list.bfno}</td><td>${list.id}</td><td>${list.bftitle}</td><td>${list.bfdate}</td>
+			<td>${list.bqno}</td><td>${list.id}</td><td>${list.bqtitle}</td><td>${list.bqdate}</td>
+			<td>${list.brno}</td><td>${list.id}</td><td>${list.brtitle}</td><td>${list.brdate}</td>
 		</tr>
 	</c:forEach>
 </table><br>

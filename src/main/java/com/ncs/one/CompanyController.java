@@ -313,10 +313,10 @@ public class CompanyController {
 	
 	
 	//---------------------------------------------------------------------------------------------------
-	// ** Joinf
+	// ** cJoinf
 	@RequestMapping(value = "/cjoinf")
 	public ModelAndView joinf(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm00");
+		mv.setViewName("company/cjoinForm01");
 		return mv;
 	} //joinf
 	

@@ -31,32 +31,7 @@
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/axCompany.js"></script>
 <script>
-/* //** 사업자번호 : 자동 하이픈 추가  
-function addHypen(obj) {
-    var number = obj.value.replace(/[^0-9]/g, "");
-    var cnoNum = "";
 
-    if(number.length < 4) {
-        return number;
-    } else if(number.length < 5) {
-    	cnoNum += number.substr(0, 3);
-    	cnoNum += "-";
-    	cnoNum += number.substr(3);
-    } else if(number.length < 10) {
-    	cnoNum += number.substr(0, 3);
-    	cnoNum += "-";
-    	cnoNum += number.substr(3, 2);
-    	cnoNum += "-";
-    	cnoNum += number.substr(5);
-    } else {
-    	cnoNum += number.substr(0, 3);
-    	cnoNum += "-";
-    	cnoNum += number.substr(3, 2);
-    	cnoNum += "-";
-    	cnoNum += number.substr(5);
-    }
-    obj.value = cnoNum;
-} */
 
 var cnoFCheck=false;
 var cpwFCheck=false;
@@ -143,57 +118,83 @@ function cjoinForm01() {
 } //cnoOK
 </script>
 </head>
- <body style="padding-top: 72px;">
- <div class="py-3 py-lg-5">
- 	<div>
- 	
- 	</div>
- </div>
-<%--     <section>
-	  <div class="container my-5 shadow">
-	  	<div class="row text-center">
-		    <ul class="nav nav-pills nav-justified" id="myTab" role="tablist">
-			  <li class="nav-item" role="presentation">
-			    <button class="nav-link " id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">일반회원가입</button>
-			  </li>
-			  <li class="nav-item" role="presentation">
-			    <button class="nav-link active" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab" aria-controls="business" aria-selected="false">사업자회원가입</button>
-			  </li>
-			</ul>
-		<div class="py-2 py-lg-5 tab-content" id="myTabContent" style="background-color: #e5e5e5; align-content: center;">
-		  <div class="tab-pane fade" id="basic" role="tabpanel" aria-labelledby="basic-tab">
-		  	<p class="text-muted">지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요.</p>
-            <p class="text-muted mb-5">지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요.</p>
-            <p class="mb-5 mb-lg-0"> <a class="btn btn-primary" href="joinf">일반회원가입</a></p>
-		  </div>
-		  <div class="tab-pane fade show active" id="business" role="tabpanel" aria-labelledby="business-tab">
-		  	<p class="text-muted">지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요.</p>
-            <p class="text-muted mb-5">지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요.</p>
-            <input class="cjoin_cnoNum" type="text" name="cno" id="cno" onKeyup = "addHypen(this)" maxlength="12" placeholder="사업자번호 10자리를 하이픈(-) 없이 입력하세요." required>						
-            <p class="mb-5 mb-lg-0 py-2 py-lg-3">
-            	<input class="btn btn-primary" type="button" value="사업자번호인증" id="cnoDup" onclick="cnoDupCheck()">
-            	<c:if test="${cnoUse=='T'}">
-            		 <a class="btn btn-primary" href="cjoinf">사업자회원가입</a>
-            	</c:if></p>
-         </div>
-		</div>
-       </div> 
-      </div>
-    </section>
-     --%>
-    <div class="container my-5">
-    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg text-center">
+  <body style="padding-top: 72px;">
+  <header class="header">
+	 <!-- Navbar-->
+	 <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+	   <div class="container-fluid">
+	     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">
+	       
+	     <!--  *** 로고만들어서 로고 넣기  -->
+	     <img src="resources/image/logo.svg" alt="Directory logo"></a>
+	     </div>
+	     
+	     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+	     <!-- Navbar Collapse -->
+	     <div class="collapse navbar-collapse" id="navbarCollapse">
+	       <ul class="navbar-nav ms-auto">
+	         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
+	         </li>
+	         <li class="nav-item"><a class="nav-link" href="문의게시판">고객센터</a>
+	         </li>
+	         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	              사업자회원메뉴</a>
+	           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+	             <h6 class="dropdown-header fw-normal">사업자회원</h6>
+	             	<c:if test="${loginCno==null}">
+		             	<a class="dropdown-item" href="cloginf">로그인</a>
+	    	         	<a class="dropdown-item" href="cjoinf">회원가입</a>
+	    	         </c:if>
+	    	         <c:if test="${loginCno!=null}">
+		   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
+	    	        	<a class="dropdown-item" href="cdetail?cno=${loginCno}&jcode=U">내정보수정</a>&nbsp;&nbsp;
+						<a class="dropdown-item" href="cinfo_main">사업자MyInfo</a>&nbsp;&nbsp;
+						<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+						<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
+					 </c:if>
+	           </div>
+	         </li>
+	         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	              일반회원메뉴</a>
+	           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+	             <h6 class="dropdown-header fw-normal">일반회원</h6>
+	             	<c:if test="${loginID==null}">
+		             	<a class="dropdown-item" href="loginf">로그인</a>
+	    	         	<a class="dropdown-item" href="joinf">회원가입</a>
+	    	         </c:if>
+	    	         <c:if test="${loginID!=null}">
+						<a class="dropdown-item" href="cinfo_main">일반회원MyInfo</a>&nbsp;&nbsp;
+						<a class="dropdown-item" href="logout">로그아웃</a>&nbsp;&nbsp;
+					 </c:if>
+	             <div class="dropdown-divider"></div>
+	             <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item" href="resources/docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item" href="docs/components-directory.html">Theme </a>
+	           </div>
+	         </li>
+	         <li class="nav-item"><a class="nav-link" href="ccontent_main">업체정보보기</a></li>
+	         <li class="nav-item"><a class="nav-link" href="loginf_total">통합로그인</a></li>
+	         <li class="nav-item"><a class="nav-link" href="joinf_total">통합회원가입</a></li>
+	         <li class="nav-item"><a class="nav-link" href="cjoinf01">사업자회원 회원가입테스트</a></li>
+	         <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
+	       </ul>
+	     </div>
+	   </div>
+	 </nav>
+	</header>
+    <div class="progress rounded-0 sticky-top" style="height: 8px; top: 72px;">
+      <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <div class="container my-5" style="background-color: #FFFFFF;" >
+    <div class="row p-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg text-center">
       <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-        <h1 class="display-4 fw-bold lh-1">통합회원가입</h1>
-        <p class="lead">지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요. 지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-          <a type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold" href="joinf">일반회원가입</a>
+        <h2 class="display-4 fw-bold lh-1">통합회원가입</h2>
+        <p class="lead"><br>지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요.   지금 회원 가입하신 후 문화플랫폼의 다양한 서비스를 만나보세요.</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-sm-center mb-4 mb-lg-3">
+          <a type="button" class="btn btn-outline-primary btn-lg px-4 me-md-2 fw-bold" href="joinf">일반회원가입</a>
           <a  type="button" class="btn btn-outline-secondary btn-lg px-4" href="cjoinf" >사업자회원가입</a>
         </div>
       </div>
-      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-      	  <img class="rounded-lg-3" src="resources/img/illustration/undraw_celebration_0jvk.svg" alt="" width="400">
-          <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720">
+      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden ms-auto">
+      	  <img class="img-fluid" src="resources/img/illustration/undraw_High_five_re_jy71.svg" alt="" width="360">
       </div>
     </div>
   </div>

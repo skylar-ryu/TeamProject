@@ -5,8 +5,32 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>회원가입</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Price Slider Stylesheets -->
+    <link rel="stylesheet" href="resources/vendor/nouislider/nouislider.css">
+    <!-- Google fonts - Playfair Display-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
+    <!-- Google fonts - Poppins-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
+    <!-- swiper-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+    <!-- Magnigic Popup-->
+    <link rel="stylesheet" href="resources/vendor/magnific-popup/magnific-popup.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="resources/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="resources/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="resources/img/favicon.png">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/inCheck.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -63,28 +87,28 @@ $ (function (){
 function inCheck() {
 
 	if(iCheck==false) {
-		$('#iMessage').html(' 아이디를 입력 하세요.');
+		$('#iMessage').html(' 아이디를 입력하세요.');
 	}
 	if(pCheck==false) {
-		$('#pMessage').html(' 비밀번호를 입력 하세요.');
+		$('#pMessage').html(' 비밀번호를 입력하세요.');
 	}
 	if(cCheck==false) {
-		$('#cMessage').html(' 비밀번호 확인을 입력 하세요.');
+		$('#cMessage').html(' 비밀번호 확인을 입력하세요.');
 	}
 	if(nCheck==false) {
-		$('#nMessage').html(' 이름을 입력 하세요.');
+		$('#nMessage').html(' 이름을 입력하세요.');
 	}
 	if(bCheck==false) {
-		$('#bMessage').html(' 생년월일을 입력 하세요.');
+		$('#bMessage').html(' 생년월일을 입력하세요.');
 	}
 	if(tCheck==false) {
-		$('#tMessage').html(' 전화번호를 입력 하세요.');
+		$('#tMessage').html(' 전화번호를 입력하세요.');
 	}
 	if(eCheck==false) {
-		$('#emMessage').html(' 이메일을 입력 하세요.');
+		$('#emMessage').html(' 이메일을 입력하세요.');
 	}
 	if (iCheck && pCheck && cCheck && nCheck && bCheck && tCheck && eCheck) {
-		alert('회원가입 되었습니다. \n로그인 후 이용하세요 :-)');
+		alert('입력이 완료되었습니다. \n확인을 누르면 회원가입이 완료 됩니다 :-)');
 		return true;
 	} else 
 		return false;
@@ -100,19 +124,19 @@ function checkId() {
                 },
          success : function(data) {
 				  if(id=="" && data=='0') {
-						$(".joinbtn").prop("disabled", true);
-                    	iCheck = 0;
+                    $(".joinbtn").prop("disabled", true);
+                    iCheck = 0;
                   	} else if (data == '0') {
                     	$(".trueM").html('사용가능한 아이디입니다.').css ({ fontSize: "small", fontWeight: "bold", color: "Blue" });
                    		iCheck = 1;
-                 	  if(iCheck==1) {
+                  	  if(iCheck==1) {
                         $(".joinbtn").prop("disabled", false);                       
-                        inCheck();
-                	 }
+                     //   signupCheck();
+                   	} 
                 } else if (data == '1') {
-                    	$(".joinbtn").prop("disabled", true);
-                    	$(".falseM").html('이미 사용중인 아이디입니다.').css ({	fontSize: "small", fontWeight: "bold", color: "Red" });
-                   		iCheck = 0;
+                    $(".joinbtn").prop("disabled", true);
+                    $(".falseM").html('이미 사용중인 아이디입니다.').css ({	fontSize: "small", fontWeight: "bold", color: "Red" });
+                    iCheck = 0;
                 } 
             }
         });
@@ -147,52 +171,64 @@ function addHypen(obj) {
 }
 
 </script>
-	<style>
-		h1 { text-align: center;}
-		b { color: red; }
-		table {	margin-left:auto; 
-    			margin-right:auto; }
-	</style>
+<style>
+.eMessage { font-size: x-small;
+			font-style: italic; }
+</style>
 </head>
 <body>
-<h1>회원가입</h1><br><hr><br>
-<form action="join" method="post" id="myForm">
-<table>
-	<tr height="50"><td><b>*</b> 아이디</td>
-		<td><input type="text" name="id" id="id" oninput="checkId()" required>
-			<span id="checkM" class="trueM falseM"></span><br>
-			<span id="iMessage" class="eMessage"></span></td>
-	</tr>	
-	<tr height="50"><td><b>*</b> 비밀번호</td>
-		<td><input type="password" name="pw" id="pw" required><br>
-			<span id="pMessage" class="eMessage"></span></td>
-	</tr>
-	<tr height="50"><td><b>*</b> 비밀번호 재확인</td>
-		<td><input type="password" name="checkpw" id="checkpw" required><br>
-			<span id="cMessage" class="eMessage"></span></td>
-	</tr>	
-	<tr height="50"><td><b>*</b> 이름</td>
-		<td><input type="text" name="name" id="name" required><br>
-			<span id="nMessage" class="eMessage"></span></td>
-	</tr>	
-	<tr height="50"><td><b>*</b> 생년월일</td>
-		<td><input type="date" name="birth" id="birth" required><br>
-			<span id="bMessage" class="eMessage"></span></td>
-	</tr>
-	<tr height="50"><td><b>*</b> 연락처</td>
-		<td> <input type="tel" name="tel" id="tel" onKeyup = "addHypen(this)" maxlength="13" placeholder="하이픈(-) 없이 입력하세요." required><br>
-			 <span id="tMessage" class="eMessage"></span></td>
-		</tr>
-	<tr height="50"><td><b>*</b> 이메일</td>
-		<td><input type="email" name="email" id="email" required><br>
-			<span id="emMessage" class="eMessage"></span></td>
-	</tr>	
-	<tr height="50"><td>주소</td>
-		<td><input type="text" id="postcode" name="addr" placeholder="우편번호" size="10">
-			<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" id="addr" name="addr" placeholder="주소" size="45"><br>
-			<input type="text" id="detailAddr" name="addr" placeholder="상세주소">
-			<input type="hidden" id="extraAddr" name="addr" placeholder="참고항목">
+<div class="container-fluid px-3">
+	<div class="row min-vh-100">
+		<div class="col-md-8 col-lg-6 col-xl-5 d-flex align-items-center">
+			<div class="w-100 py-5 px-md-5 px-xxl-6 position-relative">
+            	<div class="mb-4"><img class="img-fluid mb-4" src="resources/img/logo-square.svg" alt="..." style="max-width: 4rem;">
+              	<h2>일반 회원가입</h2>
+              	<p class="text-muted">Welcome</p>
+            </div>
+<form action="join" method="post" class="form-validate">
+	<div class="mb-4">
+		<label class="form-label" for="id"> 아이디 <label style="color: red">*</label></label>
+        <input class="form-control" name="id" id="id" type="text" oninput="checkId()" required>
+        <span id="checkM" class="trueM falseM"></span>
+		<span id="iMessage" class="eMessage form-label text-danger"></span>
+    </div>
+	<div class="mb-4">
+		<label class="form-label" for="pw"> 비밀번호 <label style="color: red">*</label></label>
+        <input class="form-control" name="pw" id="pw" type="password" required>
+    	<span id="pMessage" class="eMessage form-label text-danger"></span>
+    </div>
+	<div class="mb-4">
+		<label class="form-label" for="checkpw"> 비밀번호 재확인 <label style="color: red">*</label></label>
+		<input class="form-control" name="checkpw" id="checkpw" type="password" required>
+    	<span id="cMessage" class="eMessage form-label text-danger"></span>
+    </div>
+	<div class="mb-4">
+		<label class="form-label" for="name"> 이름 <label style="color: red">*</label></label>
+        <input class="form-control" name="name" id="name" type="text" required>
+		<span id="nMessage" class="eMessage form-label text-danger"></span>
+    </div>
+	<div class="mb-4">
+		<label class="form-label" for="birth"> 생년월일 <label style="color: red">*</label></label>
+        <input class="form-control" name="birth" id="birth" type="date" required>
+		<span id="bMessage" class="eMessage form-label text-danger"></span>
+    </div>
+    <div class="mb-4">
+		<label class="form-label" for="tel"> 연락처 <label style="color: red">*</label></label>
+        <input class="form-control" name="tel" id="tel" type="tel" onKeyup = "addHypen(this)" maxlength="13" placeholder="하이픈(-) 없이 입력하세요." required>
+		<span id="tMessage" class="eMessage form-label text-danger"></span>
+    </div>
+	<div class="mb-4">
+		<label class="form-label" for="email"> 이메일 <label style="color: red">*</label></label>
+		<input class="form-control" name="email" id="email" type="email" required>
+   		<span id="emMessage" class="eMessage form-label text-danger"></span>
+    </div>
+    <div class="mb-4">
+		<label class="form-label" for="addr"> 주소 </label>
+		<input class="form-control btn-outline-primary" type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+		<input class="form-control" name="postcode" id="postcode" type="text" placeholder="우편번호" size="10">
+		<input class="form-control" name="addr" id="addr" type="text" placeholder="주소" size="45">
+		<input class="form-control" name="detailAddr" id="detailAddr" type="text" placeholder="상세주소">
+		<input class="form-control" name="extraAddr" id="extraAddr" type="hidden" placeholder="참고항목">
 	<script>
       function execDaumPostcode() {
         new daum.Postcode({
@@ -239,17 +275,73 @@ function addHypen(obj) {
           		  }
         	}).open();
    		 }
-</script>
-		</td>
-	</tr>
-</table><br><hr><br>
-	<div style="text-align:center;">
-		<input type="submit" value="회원가입" class="joinbtn" onclick="return inCheck()" >&nbsp;
-		<input type="reset" value="취소">
-	</div>	
-</form><br>
-<div style="text-align:center;">
-	<a href="home">HOME</a>
+	</script>
 </div>
-</body>
+	<div class="d-grid gap-2">   
+		<button class="btn btn-lg btn-primary" type="submit" class="joinbtn" onclick="return inCheck()">Sign up</button>
+    </div>
+    <hr class="my-4">
+    <p class="text-sm text-muted">By signing up you agree to Directory's <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.</p>
+</form>
+	  <c:if test="${message != null}">
+ 		 <script>
+			alert("${message}");
+		 </script>	
+ 	  </c:if>
+	   <a class="close-absolute me-md-5 me-xl-6 pt-5" href="home"> 
+       <svg class="svg-icon w-3rem h-3rem">
+       <use xlink:href="#close-1"> </use>
+       </svg></a>
+       </div>
+      </div>
+     <div class="col-md-4 col-lg-6 col-xl-7 d-none d-md-block">
+          <!-- Image-->
+          <div class="bg-cover h-100 me-n3" style="background-image: url(resources/img/photo/photo-1497436072909-60f360e1d4b1.jpg);"></div>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script>
+      // ------------------------------------------------------- //
+      //   Inject SVG Sprite - 
+      //   see more here 
+      //   https://css-tricks.com/ajaxing-svg-sprite/
+      // ------------------------------------------------------ //
+      function injectSvgSprite(path) {
+      
+          var ajax = new XMLHttpRequest();
+          ajax.open("GET", path, true);
+          ajax.send();
+          ajax.onload = function(e) {
+          var div = document.createElement("div");
+          div.className = 'd-none';
+          div.innerHTML = ajax.responseText;
+          document.body.insertBefore(div, document.body.childNodes[0]);
+          }
+      }    
+      // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
+      // use your own URL in production, please :)
+      // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
+      //- injectSvgSprite('${path}icons/orion-svg-sprite.svg'); 
+      injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg'); 
+      
+    </script>
+    <!-- jQuery-->
+    <script src="resources/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
+    <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Magnific Popup - Lightbox for the gallery-->
+    <script src="resources/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- Smooth scroll-->
+    <script src="resources/vendor/smooth-scroll/smooth-scroll.polyfills.min.js"></script>
+    <!-- Bootstrap Select-->
+    <script src="resources/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+    <script src="resources/vendor/object-fit-images/ofi.min.js"></script>
+    <!-- Swiper Carousel                       -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+    <script>var basePath = ''</script>
+    <!-- Main Theme JS file    -->
+    <script src="resources/js/theme.js"></script>
+  </body>
 </html>

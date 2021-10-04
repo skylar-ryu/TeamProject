@@ -99,8 +99,8 @@ function comInCheck() {
         	    <input type="submit" value="로그인" class="btn btn-lg btn-primary" onclick="return comInCheck()">&nbsp;
               </div>
               <hr class="my-4">
-              <p class="text-center"><small class="text-muted text-center">아직 계정이 없으신가요? <a href="cjoinf">&nbsp;&nbsp;&nbsp;회원가입</a></small></p>
-            </form><a class="close-absolute me-md-5 me-xl-6 pt-5" href="home"> 
+              <p class="text-center"><small class="text-muted text-center">아직 계정이 없으신가요? <a href="cjoinf">&nbsp;&nbsp;&nbsp;사업자회원 회원가입</a></small></p>
+            </form><a class="close-absolute me-md-5 me-xl-6 pt-5" href="loginf_total"> 
               <svg class="svg-icon w-3rem h-3rem">
                 <use xlink:href="#close-1"> </use>
               </svg></a>

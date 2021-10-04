@@ -111,6 +111,27 @@ function cnoDupCheck() {
 </script>
 </head>
   <body style="padding-top: 72px;">
+  <header class="header">
+	 <!-- Navbar-->
+	 <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+	   <div class="container-fluid">
+	     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">
+	       
+	     <!--  *** 로고만들어서 로고 넣기  -->
+	     <img src="resources/image/logo.svg" alt="Directory logo"></a>
+	     </div>
+	     
+	     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+	     <!-- Navbar Collapse -->
+	     <div class="collapse navbar-collapse" id="navbarCollapse">
+	       <ul class="navbar-nav ms-auto">
+	         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
+	         </li>
+	       </ul>
+	     </div>
+	   </div>
+	 </nav>
+	</header>
     <div class="progress rounded-0 sticky-top" style="height: 8px; top: 72px;">
       <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
