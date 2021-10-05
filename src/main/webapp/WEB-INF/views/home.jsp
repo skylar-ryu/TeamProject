@@ -8,15 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
 <script src="resources/myLib/jquery-3.6.0.min.js"></script>
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
-<!--  <script>
-function setClock() {
-	var now = new Date();
-	var t = "* Now : "
-		+now.getFullYear()+"년"+(now.getMonth()+1)+"월"+now.getDate()+"일_"
-		+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds() ;
-	document.getElementById("clock").innerHTML=t;	
-}
-</script> -->
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">
@@ -36,10 +27,6 @@ function setClock() {
 <link rel="stylesheet" href="resources/css/custom.css">
 <!-- Favicon-->
 <link rel="shortcut icon" href="resources/img/favicon.png">
-<!-- Tweaks for older IEs--><!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-<!-- Font Awesome CSS-->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <!-- 한글폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,57 +38,56 @@ function setClock() {
  <!-- Navbar-->
  <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
    <div class="container-fluid">
-     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">
-       
-     <!--  *** 로고만들어서 로고 넣기  -->
-     <img src="resources/image/logo.svg" alt="Directory logo"></a>
-     </div>
-     
+     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
+     <img src="resources/image/logo.svg" alt="Logo"></a></div>
+               
      <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
      <!-- Navbar Collapse -->
      <div class="collapse navbar-collapse" id="navbarCollapse">
        <ul class="navbar-nav ms-auto">
          <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
          </li>
-         <li class="nav-item"><a class="nav-link" href="문의게시판">고객센터</a>
-         </li>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           COMMUNITY</a>
+       		<div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="aboard">Notice</a><a class="dropdown-item" href="aboard">Q&A</a><a class="dropdown-item" href="aboard">Review <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+       	 </li>
+       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
+       	 
+       	 <c:if test="${loginCno==null && loginID==null}">	
+	        <li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
+	        <li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
+	     </c:if>
          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              사업자회원메뉴</a>
+              회원메뉴</a>
+          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-             <h6 class="dropdown-header fw-normal">사업자회원</h6>
-             	<c:if test="${loginCno==null}">
-	             	<a class="dropdown-item" href="cloginf">로그인</a>
-    	         	<a class="dropdown-item" href="cjoinf">회원가입</a>
+             	<c:if test="${loginCno==null && loginID==null}">
+             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
+	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
+    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
     	         </c:if>
-    	         <c:if test="${loginCno!=null}">
+    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
+    	         <c:if test="${loginCno!=null && loginID==null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+				 </c:if>
+		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 
+		   			***************** 세영 수정--> 
+    	         <c:if test="${loginCno==null && loginID!=null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
 	   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
-    	        	<a class="dropdown-item" href="cdetail?cno=${loginCno}&jcode=U">내정보수정</a>&nbsp;&nbsp;
-					<a class="dropdown-item" href="cinfo_main">사업자MyInfo</a>&nbsp;&nbsp;
+    	        	<a class="dropdown-item" href="cdetail?cno=${loginID}&jcode=U">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">사업자MyInfo</a>&nbsp;&nbsp;
 					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
 					<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
 				 </c:if>
            </div>
          </li>
-         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              일반회원메뉴</a>
-           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-             <h6 class="dropdown-header fw-normal">일반회원</h6>
-             	<c:if test="${loginID==null}">
-	             	<a class="dropdown-item" href="loginf">로그인</a>
-    	         	<a class="dropdown-item" href="joinf">회원가입</a>
-    	         </c:if>
-    	         <c:if test="${loginID!=null}">
-					<a class="dropdown-item" href="cinfo_main">일반회원MyInfo</a>&nbsp;&nbsp;
-					<a class="dropdown-item" href="logout">로그아웃</a>&nbsp;&nbsp;
-				 </c:if>
-             <div class="dropdown-divider"></div>
-             <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item" href="resources/docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item" href="docs/components-directory.html">Theme </a>
-           </div>
-         </li>
-         <li class="nav-item"><a class="nav-link" href="ccontent_main">업체정보보기</a></li>
-         <li class="nav-item"><a class="nav-link" href="loginf_total">통합로그인</a></li>
-         <li class="nav-item"><a class="nav-link" href="joinf_total">통합회원가입</a></li>
-         <li class="nav-item"><a class="nav-link" href="cjoinf01">사업자회원 회원가입테스트</a></li>
+          <!-- 예약부분 추가할거있으면 추가 
+		   			***************** 선민 수정-->
          <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
        </ul>
      </div>

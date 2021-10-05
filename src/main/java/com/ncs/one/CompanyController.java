@@ -32,36 +32,6 @@ public class CompanyController {
 	PasswordEncoder passwordEncoder;
 	
 	
-	// ** 업체상세페이지 : 페이지나누기
-	@RequestMapping(value = "/compaging")
-	public ModelAndView compaging(ModelAndView mv, Criteria cri, PageMaker pageMaker) {
-		cri.setSnoEno();
-		mv.addObject("Banana",service.criPList(cri));
-		
-		pageMaker.setCri(cri);
-		pageMaker.setTotalRowCount(service.totalRowsCount());
-		
-		mv.addObject("pageMaker",pageMaker);
-		mv.setViewName("company/comContent/comContent_Seoul");
-		return mv;
-	} //mcplist
-	
-	// ** Check_Company
-	@RequestMapping(value="/cchecklist")
-	public ModelAndView cchecklist(ModelAndView mv, CompanyVO vo) {
-		List <CompanyVO> list = null;
-		if(vo.getComCheck()!=null)list = service.checkList(vo);
-		else list=service.selectList();
-		
-		if(list != null && list.size()>0) {
-			mv.addObject("Banana",list);
-		}else {
-			mv.addObject("message","출력할 자료가 1건도 없습니다.");
-		}
-		mv.setViewName("company/comList");
-		return mv;
-	}
-	
 	// ** Image DownLoad
 	@RequestMapping(value = "/dnload")
 	public ModelAndView comdnload(HttpServletRequest request, ModelAndView mv,
@@ -78,34 +48,16 @@ public class CompanyController {
 		return mv;	
 	}
 	
-	@RequestMapping(value = "/comlist")
-	public ModelAndView comlist(ModelAndView mv) {
-
-		List<CompanyVO> list = service.selectList();
-		if (list != null) {
-			mv.addObject("Banana", list);
-		}else {
-			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
-		}
-		mv.setViewName("company/comList");
-		return mv;
-	} //comlist
-
-	
 	// ** Cno 중복확인
 	@RequestMapping(value = "/cnoCheck")
 	public ModelAndView cnoCheck(ModelAndView mv, CompanyVO vo) {
 		mv.addObject("newCno", vo.getCno());
 		if (service.selectOne(vo) != null) {
-			mv.addObject("cnoUse", "F"); // 사용불가
-			mv.setViewName("company/cjoinForm00 ");
-		}else { 
-			mv.addObject("cnoUse", "T"); // 사용가능
-			mv.setViewName("company/cjoinForm01");
-		}		
+			  mv.addObject("cnoUse", "F"); // 사용불가
+		}else mv.addObject("cnoUse", "T"); // 사용가능
+		mv.setViewName("company/cnoDupCheck");
 		return mv;
 	} //cnoCheck
-	
 	
 	//---------------------------------------------------------------------------------------------------
 	// ** Loginf
@@ -157,7 +109,7 @@ public class CompanyController {
 	
 	
 	//---------------------------------------------------------------------------------------------------
-	// ** 업체콘텐츠 지역별로 보기 
+	// ** 업체콘텐츠 지역별로 보기 + 각 문화공간 상세정보
 	// ** Company Content_main화면
 	@RequestMapping(value = "/ccontent_main")
 	public ModelAndView ccontent_main(ModelAndView mv) {
@@ -186,9 +138,55 @@ public class CompanyController {
 		return mv;
 	}//cinfo_main
 	
+	// ** Company Content : 부산
+	@RequestMapping(value = "/ccontent_busan")
+	public ModelAndView ccontent_busan(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comContent/comContent_Busan");
+		return mv;
+	}//cinfo_busan
 	
+	// ** Company Content : 제주
+	@RequestMapping(value = "/ccontent_jeju")
+	public ModelAndView ccontent_jeju(ModelAndView mv) {
+		
+		List<CompanyVO> list = service.selectList();
+		if (list != null) {
+			mv.addObject("Banana", list);
+		}else {
+			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
+		}
+		mv.setViewName("company/comContent/comContent_Jeju");
+		return mv;
+	}//cinfo_jeju
 	
+	// ** Company Content : 문화공간별 상세보기 (로그인없이도 보기가능)
+	@RequestMapping(value = "/cdetail01")
+	public ModelAndView cdetail01(HttpServletRequest request, ModelAndView mv, CompanyVO vo, RedirectAttributes rttr) {
+		
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			vo = service.selectOne(vo);
+			if (vo != null) {
+				request.setAttribute("Apple", vo);
+				mv.setViewName("company/comContent/comDetail");  
+			}else {
+				rttr.addFlashAttribute("message", "~~ 글번호에 해당하는 업체를 찾을 수 없습니다 ~~");
+				mv.setViewName("redirect:comDetail_main"); 
+			}
+		}
+		return mv;
+	} //cdetail01
+
 	
+	//---------------------------------------------------------------------------------------------------
+	// ** 마이페이지 : 마이페이지 메인화면
 	@RequestMapping(value = "/cinfo_main")
 	public ModelAndView cinfo_main(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
 		
@@ -203,7 +201,7 @@ public class CompanyController {
 					mv.setViewName("company/comUpdateForm");
 					vo.setCpw((String)session.getAttribute("loginCpw"));
 				}else {
-					mv.setViewName("company/comInfo_main");
+					mv.setViewName("company/comInfo/comInfo_Main");
 					vo.setCpw("********");
 				}
 				mv.addObject("Apple",vo);
@@ -219,39 +217,9 @@ public class CompanyController {
 		return mv;
 	}//cinfo_main
 	
-	// ** Company Info_main화면
-		@RequestMapping(value = "/cinfo_cinfo")
-		public ModelAndView cinfo_cinfo(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
-			
-			HttpSession session =request.getSession(false);
-			if(session !=null && session.getAttribute("loginCno")!=null) {
-				vo.setCno((String)session.getAttribute("loginCno"));
-				
-				if(request.getParameter("cno")!=null) vo.setCno(request.getParameter("cno"));
-				vo=service.selectOne(vo);
-				if(vo!=null) {
-					if("U".equals(request.getParameter("jcode"))) {
-						mv.setViewName("company/comUpdateForm");
-						vo.setCpw((String)session.getAttribute("loginCpw"));
-					}else {
-						mv.setViewName("company/comInfo_Cinfo");
-						vo.setCpw("********");
-					}
-					mv.addObject("Apple",vo);
-				}else {
-					mv.addObject("message","~~ 정보를 찾을 수 없습니다, 로그인 후 이용하세요 ~~");
-					mv.setViewName("company/cloginForm");
-				}
-			}else {
-				// 로그인 정보 없음
-				mv.addObject("message","~~ 로그인 정보 없습니다, 로그인 후 이용하세요 ~~");
-				mv.setViewName("company/cloginForm");
-			}		
-			return mv;
-		}//cinfo_cinfo
-	
-	@RequestMapping(value = "/cdetail")
-	public ModelAndView cdetail(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
+	// ** 사업자회원보는 내정보보기 : 로그인해야만 볼 수 있는 내 정보 
+	@RequestMapping(value = "/cinfo_detail")
+	public ModelAndView cinfo_detail(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
 		
 		HttpSession session =request.getSession(false);
 		if(session !=null && session.getAttribute("loginCno")!=null) {
@@ -264,7 +232,7 @@ public class CompanyController {
 					mv.setViewName("company/comUpdateForm");
 					vo.setCpw((String)session.getAttribute("loginCpw"));
 				}else {
-					mv.setViewName("company/comDetail_OG");
+					mv.setViewName("company/comInfo/comInfo_Detail");
 					vo.setCpw("********");
 				}
 				mv.addObject("Apple",vo);
@@ -278,48 +246,48 @@ public class CompanyController {
 			mv.setViewName("company/cloginForm");
 		}		
 		return mv;
-	}//cinfo_main
-		
-	@RequestMapping(value = "/cdetail_main")
-	public ModelAndView cdetail_main(ModelAndView mv) {
-		
-		List<CompanyVO> list = service.selectList();
-		if (list != null) {
-			mv.addObject("Banana", list);
-		}else {
-			mv.addObject("message", "~~ 출력할 자료가 한건도 없습니다 ~~") ;
-		}
-		mv.setViewName("company/comDetail_main");
-		return mv;
-	}//cinfo_main
+	}//cdetail :내정보보기
 	
-	
-	@RequestMapping(value = "/cdetail01")
-	public ModelAndView cdetail01(HttpServletRequest request, ModelAndView mv, CompanyVO vo, RedirectAttributes rttr) {
+	// ** 마이페이지 : 내정보수정하기
+	@RequestMapping(value = "/cinfo_cinfo")
+	public ModelAndView cinfo_cinfo(HttpServletRequest request, ModelAndView mv, CompanyVO vo) {
 		
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			vo = service.selectOne(vo);
-			if (vo != null) {
-				request.setAttribute("Apple", vo);
-				mv.setViewName("company/comDetail");  
+		HttpSession session =request.getSession(false);
+		if(session !=null && session.getAttribute("loginCno")!=null) {
+			vo.setCno((String)session.getAttribute("loginCno"));
+			
+			if(request.getParameter("cno")!=null) vo.setCno(request.getParameter("cno"));
+			vo=service.selectOne(vo);
+			if(vo!=null) {
+				if("U".equals(request.getParameter("jcode"))) {
+					mv.setViewName("company/comUpdateForm");
+					vo.setCpw((String)session.getAttribute("loginCpw"));
+				}else {
+					mv.setViewName("company/comInfo/comInfo_Cinfo");
+					vo.setCpw("********");
+				}
+				mv.addObject("Apple",vo);
 			}else {
-				rttr.addFlashAttribute("message", "~~ 글번호에 해당하는 업체를 찾을 수 없습니다 ~~");
-				mv.setViewName("redirect:comDetail_main"); 
+				mv.addObject("message","~~ 정보를 찾을 수 없습니다, 로그인 후 이용하세요 ~~");
+				mv.setViewName("company/cloginForm");
 			}
-		}
+		}else {
+			// 로그인 정보 없음
+			mv.addObject("message","~~ 로그인 정보 없습니다, 로그인 후 이용하세요 ~~");
+			mv.setViewName("company/cloginForm");
+		}		
 		return mv;
-	} //cdetail01
+	}//cinfo_cinfo
 	
 	
 	//---------------------------------------------------------------------------------------------------
-	// ** cJoinf
+	// ** 업체회원가입 : cjoinf
 	@RequestMapping(value = "/cjoinf")
 	public ModelAndView joinf(ModelAndView mv) {
 		mv.setViewName("company/cjoinForm01");
 		return mv;
 	} //joinf
-	
+
 	// ** Join
 	@RequestMapping(value = "/cjoin")
 	public ModelAndView cjoin(HttpServletRequest request, ModelAndView mv, CompanyVO vo) throws IOException  {
@@ -357,36 +325,20 @@ public class CompanyController {
 		if (service.insert(vo) > 0) {
 			// Join 성공 -> 로그인 유도
 			mv.addObject("message", "~~ 회원가입 완료, 로그인 하세요 ~~");
-			mv.setViewName("company/cloginForm");
+			mv.setViewName("company/cjoinForm02");
 		}else {
 			// Join 실패 -> 재가입 유도
 			mv.addObject("message", "~~ 회원가입 오류, 다시 하세요 ~~");
-			mv.setViewName("company/cjoinForm");
+			mv.setViewName("company/cjoinForm01");
 		}
 		return mv;
 	} //join
 	
 	
-	// ** Company Update : 사업자 정보수정
-		@RequestMapping(value = "/cupdate_info")
-		public ModelAndView cupdate_info(HttpServletRequest request, ModelAndView mv,
-							CompanyVO vo, RedirectAttributes rttr) throws IOException {
-			if (service.update(vo) > 0) {
-				// Update 성공 -> mList
-				rttr.addFlashAttribute("message", "~~ 정보 수정 성공 ~~");
-				mv.setViewName("redirect:cinfo_cinfo");
-			}else {
-				// Update 실패 -> 재수정 할 수 있도록 유도
-				rttr.addFlashAttribute("message", "~~ 정보수정 오류, 다시 하세요 ~~");
-				mv.setViewName("redirect:cinfo_cinfo?cno="+vo.getCno()+"&jcode=U");
-			}
-			return mv;
-		}//cupdate_info
-	
-	// ** Company Update : 사업자 정보수정
+	//---------------------------------------------------------------------------------------------------	
+	// ** Company Update : 사업자회원 내정보수정
 	@RequestMapping(value = "/cupdate")
-	public ModelAndView cupdate(HttpServletRequest request, ModelAndView mv,
-						CompanyVO vo, RedirectAttributes rttr) throws IOException {
+	public ModelAndView cupdate(HttpServletRequest request, ModelAndView mv, CompanyVO vo, RedirectAttributes rttr) throws IOException {
 		
 		String realPath = request.getRealPath("/");
 		if (realPath.contains(".eclipse."))
@@ -417,9 +369,9 @@ public class CompanyController {
 		vo.setCpw(passwordEncoder.encode(vo.getCpw()));
 
 		if (service.update(vo) > 0) {
-			// Update 성공 -> 상세정보
+			// Update 성공 -> 상세정보확인
 			rttr.addFlashAttribute("message", "~~ 정보 수정 성공 ~~");
-			mv.setViewName("home");
+			mv.setViewName("redirect:cdetail");
 		}else {
 			// Update 실패 -> 재수정 할 수 있도록 유도
 			rttr.addFlashAttribute("message", "~~ 정보수정 오류, 다시 하세요 ~~");
@@ -428,11 +380,9 @@ public class CompanyController {
 		return mv;
 	}//cupdate
 	
-	
 	// ** Company Delete : 사업자 탈퇴 
 	@RequestMapping(value = "/cdelete")
-	public ModelAndView cdelete(HttpServletRequest request,ModelAndView mv, 
-								CompanyVO vo, RedirectAttributes rttr) {
+	public ModelAndView cdelete(HttpServletRequest request,ModelAndView mv, CompanyVO vo, RedirectAttributes rttr) {
 		
 		// * 삭제대상 -> vo에 set
 		HttpSession session = request.getSession(false);
@@ -450,7 +400,7 @@ public class CompanyController {
 				File delF = new File(realPath);
 				if (delF.exists()) delF.delete();
 			}
-			
+
 			if(service.delete(vo)>0) {
 				session.invalidate();
 				rttr.addFlashAttribute("message","사업자회원 탈퇴되셨습니다. 1개월 후 재가입 가능합니다.");
@@ -466,40 +416,5 @@ public class CompanyController {
 		}
 		return mv;
 	}//cdelete
-	
-	// ** Loginf00
-	@RequestMapping(value = "/cjoinf00")
-	public ModelAndView cloginf00(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm00");
-		return mv;
-	} //loginf00
-	// ** Loginf00
-	@RequestMapping(value = "/cjoinf01")
-	public ModelAndView cloginf01(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm01");
-		return mv;
-	} //loginf00
-	// ** Loginf00
-	@RequestMapping(value = "/cjoinf02")
-	public ModelAndView cloginf02(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm02");
-		return mv;
-	} //loginf00
-	// ** Loginf00
-	@RequestMapping(value = "/cjoinf03")
-	public ModelAndView cloginf03(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm03");
-		return mv;
-	} //loginf00
-	@RequestMapping(value = "/cjoinf04")
-	public ModelAndView cloginf04(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm_test");
-		return mv;
-	} //loginf00
-	
-	@RequestMapping(value = "/cjoinf_clone2")
-	public ModelAndView cjoinf_clone2(ModelAndView mv) {
-		mv.setViewName("company/cjoinForm_clone2");
-		return mv;
-	} //cjoinf_clone
+
 }//class

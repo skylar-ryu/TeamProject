@@ -28,8 +28,25 @@ public class ReservationController {
 	// ** 예약접수 메인 폼
 	@RequestMapping(value = "/rmainf")
 	public ModelAndView rmainf(ModelAndView mv) {
-		mv.setViewName("reservation/mainForm");
+		mv.setViewName("reservation/reservationForm");
 		return mv;
 	} //rmainf
 	
+	// ** 예약하기
+		@RequestMapping(value = "/reservation")
+		public ModelAndView reservation(ModelAndView mv, ReservationVO vo) {
+
+			if (service.insert(vo) > 0) {
+				// 예약 성공 -> 예약확인 유도
+				mv.addObject("message", "~~ 예야접수 완료, 예약현황을 하세요 ~~");
+				mv.setViewName("reservation/rConfForm");
+			}else {
+				// 예약 실패 -> 재예약 유도
+				mv.addObject("message", "~~ 예약접수 오류, 다시 하세요 ~~");
+				mv.setViewName("reservation/reservationForm");
+			}
+			return mv;
+		} //reservation
+	
+
 }//class

@@ -1,10 +1,10 @@
 function cnoCheck(){
 	var cno=$('#cno').val();
-	if (cno.replace(/[0-9,!-*]/gi,'').length > 0) {
-		$('#cnoMessage').html(' ~~ 사업자번호는 숫자로만 입력 하세요 ~~');
+	if (cno.replace(/[0-9.!-*]/gi,'').length > 0) {
+		$('#cnoMessage').html('사업자번호는 숫자로만 입력 하세요');
 		return false;
-	}else if (cno.length>10) {
-		$('#cnoMessage').html(' ~~ 사업자번호는 숫자로 이루어진 10자리 값 입니다.~~');
+	}else if (cno.length>12) {
+		$('#cnoMessage').html('사업자번호는 숫자로 이루어진 10자리 값 입니다.');
 		return false;
 /*	}else if (cno.length<10) {
 		$('#cnoMessage').html(' ~~ 사업자번호는 숫자로 이루어진 10자리 값 입니다.(\'-\'등의 기호 반드시 제거 후 입력) ~~');
@@ -18,13 +18,13 @@ function cnoCheck(){
 function cpwCheck(){
 	var cpw=$('#cpw').val();
 	if (cpw.length<4) {
-		$('#cpwMessage').html(' ~~ 비밀번호는 4글자 이상 입니다 ~~');
+		$('#cpwMessage').html('비밀번호는 4글자 이상 입니다');
 		return false;
 	}else if (cpw.replace(/[!-*]/gi,'').length >= cpw.length ) {
-		$('#cpwMessage').html(' ~~ password 는 특수문자가 반드시 1개 이상 포함되어야 합니다 ~~');
+		$('#cpwMessage').html('비밀번호는 특수문자가 반드시 1개 이상 포함되어야 합니다');
 		return false;
 	}else if (cpw.replace(/[a-z.0-9.!-*]/gi,'').length > 0) {
-		$('#cpwMessage').html(' ~~ password 는 영문자, 숫자, 특수문자 로만 입력 하세요 ~~');
+		$('#cpwMessage').html('비밀번호는 영문자, 숫자, 특수문자 로만 입력 하세요');
 		return false;
 	}else {
 		$('#cpwMessage').html('');
@@ -48,10 +48,10 @@ function cpw2Check(){
 function cnmCheck() {
 	var cname=$("#cname").val();
 	if(cname.length < 2){
-		$('#cnmMessage').html(' Name 2글자 이상 입력하세요 ~~');
+		$('#cnmMessage').html('사업자명은 2글자 이상 입력하세요');
 	    return false;
 	}else if(cname.replace(/[a-z.가-힇.!-*]/gi,'').length > 0 ){ //다음 확인
-	   	$('#cnmMessage').html(' Name은 한글과 영문으로만 입력하세요 ~~');	
+	   	$('#cnmMessage').html('사업자명은 한글과 영문으로만 입력하세요');	
 	    return false;
 	}else {
 	 	$('#cnmMessage').html('');
@@ -62,7 +62,7 @@ function cnmCheck() {
 function cifCheck() {
 	var cinfo=$("#cinfo").val();
 	if(cinfo.length < 10){
-		$('#cifMessage').html('~~ 최소 20자 이상 입력해주세요 ~~ ');
+		$('#cifMessage').html('최소 20자 이상 입력해주세요');
 	    return false;
 	}else {
 	 	$('#cifMessage').html('');

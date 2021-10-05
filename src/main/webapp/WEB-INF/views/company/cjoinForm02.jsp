@@ -5,186 +5,214 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>** 사업자 회원가입 **</title>
+<title>** 사업자 회원가입_Step01 **</title>
 <link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
 <script src="resources/myLib/axCompany.js"></script>
-<script>
-var cnoFCheck=false;
-var cpwFCheck=false;
-var cpw2FCheck=false;
-var cnmFCheck=false;
-var cifFCheck=false;
-var cadFCheck=false;
-var cdtFCheck=false;
-var perisFCheck=false;
-var perieFCheck=false;
-var priFCheck=false;
-
-$(function(){
-	$('#cno').focus();
-	$('#cno').focusout(function(){
-		cnoFCheck=cnoCheck();		
-	}); //cnoCheck
-	$('#cpw').focus();
-	$('#cpw').focusout(function(){
-		cpwFCheck=cpwCheck();		
-	});	//cpwCheck
-	$('#cname').focus();
-	$('#cname').focusout(function(){
-		cnmFCheck=cnmCheck();		
-	});	//cnmCheck
-	$('#cinfo').focus();
-	$('#cinfo').focusout(function(){
-		cifFCheck=cifCheck();		
-	});	//cifCheck
-	$('#caddr').focus();
-	$('#caddr').focusout(function(){
-		cadFCheck=cadCheck();		
-	});	//cadCheck
-	$('#cdate').focus();
-	$('#cdate').focusout(function(){
-		cdtFCheck=cdtCheck();		
-	});	//cnmCheck
-	$('#period_s').focus();
-	$('#period_s').focusout(function(){
-		perisFCheck=periCheck();		
-	});	//cnmCheck
-	$('#period_e').focus();
-	$('#period_e').focusout(function(){
-		perieFCheck=periCheck();		
-	});	//cnmCheck
-	$('#cprice').focus();
-	$('#cprice').focusout(function(){
-		priFCheck=priCheck();		
-	});	//cnmCheck	
-})//ready
-
-function comInCheck() {
-	if(cnoFCheck==false){
-		$('#cnoMessage').html('사업자 번호를 입력하세요');
-	}
-	if(cpwFCheck==false){
-		$('#cpwMessage').html('비밀번호를 입력하세요');
-	}
-	if (cnoFCheck && cpwFCheck) {
-		alert('~~ 입력 완료 , 회원 가입 됩니다. ~~');
-		return true;
-	}
-	else return false;
-}//cnoIncheck
-
-//** 사업자번호 중복 확인하기
-function cnoDupCheck() {
-	if (cnoFCheck==false) {
-		cnoFCheck=cnoCheck();
-	}else {
-		var url="cnoCheck?cno="+$('#cno').val();
-		window.open(url,"_blank",
-			"toolbar=no,menubar=yes,scrollbars=yes,resizable=yes,width=500,height=400");
-	}
-} //cnoDupCheck
-
-</script>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+<!-- Price Slider Stylesheets -->
+<link rel="stylesheet" href="resources/vendor/nouislider/nouislider.css">
+<!-- Google fonts - Playfair Display-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
+<!-- Google fonts - Poppins-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
+<!-- swiper-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+<!-- Magnigic Popup-->
+<link rel="stylesheet" href="resources/vendor/magnific-popup/magnific-popup.css">
+<!-- theme stylesheet-->
+<link rel="stylesheet" href="resources/css/style.default.css" id="theme-stylesheet">
+<!-- Custom stylesheet - for your changes-->
+<link rel="stylesheet" href="resources/css/custom.css">
+<!-- Favicon-->
+<link rel="shortcut icon" href="resources/img/favicon.png">
+<!-- Font Awesome CSS-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
-<body>
-<h2>** 사업자 회원가입 **</h2>
-<form action="cjoin" method="post" id="myForm" enctype="multipart/form-data">
-<table>
-  <tr height="40"><td bgcolor="LightGreen ">사업자번호</td>
-      <td><input type="text" name="cno" id="cno" size="10" readonly>&nbsp;
-      	<span id="cnoMessage" class="eMessage"></span></td>
-  </tr>
-    <tr height="40"><td bgcolor="LightGreen ">비밀번호</td>
-      <td><input type="password" name="cpw" id="cpw" size="10"><br>
-      	<span id="cpwMessage" class="eMessage"></span></td>
-  </tr>
-  <tr height="40"><td bgcolor="LightGreen ">사업장명</td>
-      <td><input type="text" name="cname" id="cname" size="10"><br>
-      	<span id="cnmMessage" class="eMessage"></span></td>
-  </tr>
-  <tr height="40"><td bgcolor="LightGreen">카테고리</td>
-  	<td><select name="ctype" id="ctype">
-		  	<option value="G" selected="selected">선택해주세요</option>
-			<option value="A">맛집</option>
-			<option value="B">도서관</option>
-			<option value="C">카페</option>
-			<option value="D">팝업스토어</option>
-			<option value="E">전시</option>
-			<option value="F">축제</option>
-	    </select></td>
-  </tr>
-  <tr height="40"><td bgcolor="LightGreen" >상세 설명</td>
-		<td><textarea name="cinfo" rows="10" cols="40"></textarea></td>
-		<!-- 글내용안에 10자이상 입력해주세요 -->
-	</tr>
-  <tr height="40"><td bgcolor="LightGreen">위치 및 주소</td>
-      <td><input name="caddr" id="caddr" size="30"><br>
-     	<span id="cadMessage" class="eMessage"></span></td>
-  	</tr>
-  <tr height="40"><td bgcolor="LightGreen">휴무일</td>
-	<td><input type="text" name="cdate" id="cdate" ><br></td>
-  	</tr>
-  <tr height="40"><td bgcolor="LightGreen">행사기간 시작일</td>
-	<td><input type="date" name="cdate_s" id="cdate_s" ><br>
-		<span id="cdtMessage" class="eMessage"></span></td>
-  	</tr>
-  <tr height="40"><td bgcolor="LightGreen">행사기간 종료일</td>
-	<td><input type="date" name="cdate_s" id="cdate_s" ><br>
-		<span id="cdtMessage" class="eMessage"></span></td>
-  </tr>
-  <tr height="40"><td bgcolor="LightGreen">이용시간</td>
-  	  <td><input type="time" name="period_s" id="period_s"><br>
-  	  	<span id="periMessage" class="eMessage"></span></td>
-  </tr>
-   <tr height="40"><td bgcolor="LightGreen">이용시간</td>
-  	  <td><input type="time" name="period_e" id="period_e"><br>
-  	  	<span id="periMessage" class="eMessage"></span></td>
-  </tr>
-  <tr height="40"><td bgcolor="LightGreen">전화번호</td>
-  	  <td><input type="text" name="ctel" id="ctel" value="" size="10"><br>
-  </tr>
-   <tr height="40"><td bgcolor="LightGreen">입장료</td>
-  	  <td><input type="text" name="cprice" id="cprice" value="" size="10"><br>
-  	  	<span id="priMessage" class="eMessage"></span></td>
-  </tr>
-  <tr height="40"><td bgcolor="LightGreen">홈페이지</td>
-  	  <td><input type="text" name="csite" id="csite" value="" size="30"><br>
-  </tr>
-   <tr height="40"><td bgcolor="LightGreen">주차여부</td>
-  	  <td><select name="cpark" id="cpark">
-  	  		<option value="Y" selected="selected">가능</option>
-  	  		<option value="N">불가능</option>  	  		
-  	  </select><br>
-  </tr>
-  <tr height="40"><td bgcolor="LightGreen">사진</td>
-  	  <td>
-  	  <img src="" class="select_img"><br>
-  	  <input type="file" name="comuploadfilef" id="comuploadfilef">
-  	  <script>
-			$('#comuploadfilef').change(function(){
-				if(this.files && this.files[0]) {
-					var reader = new FileReader;
-			 			reader.onload = function(e) {
-		 				$(".select_img").attr("src", e.target.result)
-		 					.width(100).height(100); 
-		 				} // onload_function
-		 				reader.readAsDataURL(this.files[0]);
-		 		} // if
-			}); // change	
-  		</script>  
-  		</td>
-  </tr>
-  <tr height="40"><td></td>
-	  <td><input type="submit" value="가입" onclick="return comInCheck()" disabled id="submit">&nbsp;&nbsp;
-		  <input type="reset" value="취소">&nbsp;&nbsp;</td>
-  </tr> 
-</table></form>
-
-<c:if test="${message != null}">
-	<br>${message}<br><br>	
-</c:if>
-<hr>
-<a href="home">HOME</a>
+ <body style="padding-top: 72px;">
+<header class="header">
+ <!-- Navbar-->
+ <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+   <div class="container-fluid">
+     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
+     <img src="resources/image/logo.svg" alt="Logo"></a></div>
+               
+     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+     <!-- Navbar Collapse -->
+     <div class="collapse navbar-collapse" id="navbarCollapse">
+       <ul class="navbar-nav ms-auto">
+         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
+         </li>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           COMMUNITY</a>
+       		<div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="aboard">Notice</a><a class="dropdown-item" href="aboard">Q&A</a><a class="dropdown-item" href="aboard">Review <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+       	 </li>
+       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
+       	 
+       	 <c:if test="${loginCno==null && loginID==null}">	
+	        <li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
+	        <li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
+	     </c:if>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              회원메뉴</a>
+          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
+           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+             	<c:if test="${loginCno==null && loginID==null}">
+             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
+	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
+    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
+    	         </c:if>
+    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
+    	         <c:if test="${loginCno!=null && loginID==null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+				 </c:if>
+		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 
+		   			***************** 세영 수정--> 
+    	         <c:if test="${loginCno==null && loginID!=null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+	   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
+    	        	<a class="dropdown-item" href="cdetail?cno=${loginID}&jcode=U">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">사업자MyInfo</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
+				 </c:if>
+           </div>
+         </li>
+          <!-- 예약부분 추가할거있으면 추가 
+		   			***************** 선민 수정-->
+         <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
+       </ul>
+     </div>
+   </div>
+ </nav>
+</header>
+    <div class="progress rounded-0 sticky-top" style="height: 8px; top: 72px;">
+      <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <section class="py-5 py-lg-6">
+      <div class="container text-center">
+        <p class="subtitle text-primary">회원가입완료</p>
+        <h1 class="h2 mb-5"> 사업자회원 가입 완료 !!</h1>
+        <p class="mb-5"><img class="img-fluid" src="resources/img/illustration/undraw_celebration_0jvk.svg" alt="" style="width: 400px;"></p>
+        <p class="text-muted mb-5">감사합니다. 회원가입이 완료되셨습니다.<br> 로그인 후 서비스를 이용하세요.</p>
+        <p class="mb-5"><a class="btn btn-outline-muted mb-2" href="cloginf">사업자회원 로그인하기</a></p>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="position-relative z-index-10 d-print-none">
+      <!-- Main block - menus, subscribe form-->
+      <div class="py-6 bg-gray-200 text-muted"> 
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 mb-5 mb-lg-0">
+              <div class="fw-bold text-uppercase text-dark mb-3">Directory</div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+              <ul class="list-inline">
+                <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="twitter"><i class="fab fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="facebook"><i class="fab fa-facebook"></i></a></li>
+                <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="instagram"><i class="fab fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="pinterest"><i class="fab fa-pinterest"></i></a></li>
+                <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="vimeo"><i class="fab fa-vimeo"></i></a></li>
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+              <h6 class="text-uppercase text-dark mb-3">Rentals</h6>
+              <ul class="list-unstyled">
+                <li><a class="text-muted" href="index.html">Rooms</a></li>
+                <li><a class="text-muted" href="category-rooms.html">Map on top</a></li>
+                <li><a class="text-muted" href="category-2-rooms.html">Side map</a></li>
+                <li><a class="text-muted" href="category-3-rooms.html">No map</a></li>
+                <li><a class="text-muted" href="detail-rooms.html">Room detail</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+              <h6 class="text-uppercase text-dark mb-3">Pages</h6>
+              <ul class="list-unstyled">
+                <li><a class="text-muted" href="compare.html">Comparison                                   </a></li>
+                <li><a class="text-muted" href="team.html">Team                                   </a></li>
+                <li><a class="text-muted" href="contact.html">Contact                                   </a></li>
+              </ul>
+            </div>
+            <div class="col-lg-4">
+              <h6 class="text-uppercase text-dark mb-3">Daily Offers & Discounts</h6>
+              <p class="mb-3"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.</p>
+              <form action="#" id="newsletter-form">
+                <div class="input-group mb-3">
+                  <input class="form-control bg-transparent border-dark border-end-0" type="email" placeholder="Your Email Address" aria-label="Your Email Address">
+                  <button class="btn btn-outline-dark border-start-0" type="submit"> <i class="fa fa-paper-plane text-lg"></i></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Copyright section of the footer-->
+      <div class="py-4 fw-light bg-gray-800 text-gray-300">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+              <p class="text-sm mb-md-0">&copy; 2021, Your company.  All rights reserved.</p>
+            </div>
+            <div class="col-md-6">
+              <ul class="list-inline mb-0 mt-2 mt-md-0 text-center text-md-end">
+                <li class="list-inline-item"><img class="w-2rem" src="img/visa.svg" alt="..."></li>
+                <li class="list-inline-item"><img class="w-2rem" src="img/mastercard.svg" alt="..."></li>
+                <li class="list-inline-item"><img class="w-2rem" src="img/paypal.svg" alt="..."></li>
+                <li class="list-inline-item"><img class="w-2rem" src="img/western-union.svg" alt="..."></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+        <!-- JavaScript files-->
+    <script>
+      // ------------------------------------------------------- //
+      //   Inject SVG Sprite - 
+      //   see more here 
+      //   https://css-tricks.com/ajaxing-svg-sprite/
+      // ------------------------------------------------------ //
+      function injectSvgSprite(path) {
+      
+          var ajax = new XMLHttpRequest();
+          ajax.open("GET", path, true);
+          ajax.send();
+          ajax.onload = function(e) {
+          var div = document.createElement("div");
+          div.className = 'd-none';
+          div.innerHTML = ajax.responseText;
+          document.body.insertBefore(div, document.body.childNodes[0]);
+          }
+      }    
+      // to avoid CORS issues when viewing using file:// protocol, using the demo URL for the SVG sprite
+      // use your own URL in production, please :)
+      // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
+      //- injectSvgSprite('${path}icons/orion-svg-sprite.svg'); 
+      injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg'); 
+      
+    </script>
+    <!-- jQuery-->
+    <script src="resources/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
+    <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Magnific Popup - Lightbox for the gallery-->
+    <script src="resources/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- Smooth scroll-->
+    <script src="resources/vendor/smooth-scroll/smooth-scroll.polyfills.min.js"></script>
+    <!-- Bootstrap Select-->
+    <script src="resources/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+    <script src="resources/vendor/object-fit-images/ofi.min.js"></script>
+    <!-- Swiper Carousel                       -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js"></script>
+    <script>var basePath = ''</script>
+    <!-- Main Theme JS file    -->
+    <script src="resources/js/theme.js"></script>
 </body>
 </html>

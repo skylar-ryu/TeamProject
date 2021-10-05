@@ -5,6 +5,7 @@
 <title>** star **</title>
 <link rel="stylesheet" type="text/css" href="resources/myLib/star.css" >
 <script src="resources/myLib/jquery-3.2.1.min.js"></script>
+<script src="resources/myLib/star.js"></script>
 </head>
 <body>
 <div class="star-box">
@@ -24,14 +25,12 @@
  <span class="star star_right"></span>
 </div>
 <script>
-	  $(".star").on('click',function(){
-	   var idx = $(this).index();
-	$("#brating").val(idx);
+	   var idx = "${Apple.brating}";
 	$(".star").removeClass("on");
 	    for(var i=0; i<=idx; i++){
 	        $(".star").eq(i).addClass("on");
 	   }
-	});
+
 </script>
 </body>
 </html>

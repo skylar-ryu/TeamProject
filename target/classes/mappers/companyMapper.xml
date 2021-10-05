@@ -60,7 +60,7 @@
 	
 	<select id="pageList" resultType="vo.CompanyVO">
 		select cno,cpw,cname,ctype,cinfo,caddr,cdate,cdate_s,cdate_e,period_s,
-		period_e,ctel,cprice,csite,cpark,comuploadfile from
+		period_e,ctel,cprice,csite,cpark,comuploadfile,cpostcode,cdetailaddr from
 		(select c.* , ROW_NUMBER() OVER(order by cno) rnum from company c where cno !='0000000000')
 		where rnum between #{sno} and #{eno}
 	</select>
@@ -76,19 +76,19 @@
 	<insert id="insert">
 		insert into company values(
 		#{cno},#{cpw},#{cname},#{ctype},#{cinfo},#{caddr},#{cdate},#{cdate_s},#{cdate_e},
-		#{period_s},#{period_e},#{ctel},#{cprice},#{csite},#{cpark},#{comuploadfile})
+		#{period_s},#{period_e},#{ctel},#{cprice},#{csite},#{cpark},#{comuploadfile},#{cpostcode},#{cdetailaddr})
 	</insert>
 	
 	<update id="update">
 		update company set cpw=#{cpw}, cname=#{cname}, ctype=#{ctype}, cinfo=#{cinfo}, caddr=#{caddr}
 		, cdate=#{cdate}, cdate_s=#{cdate_s}, cdate_e=#{cdate_e}, period_s=#{period_s}, period_e=#{period_e}, ctel=#{ctel}
-		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comuploadfile=#{comuploadfile} where cno=#{cno}
+		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comuploadfile=#{comuploadfile}, cpostcode=#{cpostcode}, cdetailaddr=#{cdetailaddr} where cno=#{cno}
 	</update>
 	
 	<update id="update_">
 		update company set cpw=#{cpw}, cname=#{cname}, ctype=#{ctype}, cinfo=#{cinfo}, caddr=#{caddr}
 		, cdate=#{cdate}, cdate_s=#{cdate_s}, cdate_e=#{cdate_e}, period_s=#{period_s}, period_e=#{period_e}, ctel=#{ctel}
-		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comuploadfile=#{comuploadfile} where cno=#{cno}
+		, cprice=#{cprice}, csite=#{csite}, cpark=#{cpark}, comuploadfile=#{comuploadfile}, cpostcode=#{cpostcode}, cdetailaddr=#{cdetailaddr} where cno=#{cno}
 	</update>
 	
 	<delete id="delete">

@@ -10,5 +10,7 @@ public class PmemberVO {
 	private String birth;
 	private String tel;
 	private String email;
+	private String postcode;
 	private String addr;
+	private String detailAddr;
 }

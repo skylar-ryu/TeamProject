@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>업체상세정보</title>
+<title>내정보보기_사업자</title>
 <link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css">
 <!-- <link rel="stylesheet" type="text/css" href="resources/myLib/myStyle.css" > -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -46,68 +46,66 @@
 
 </head>
  <body style="padding-top: 72px;">
-     <header class="header">
-	 <!-- Navbar-->
-	 <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-	   <div class="container-fluid">
-	     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
-	     <img src="resources/image/logo.svg" alt="Logo"></a></div>
-	               
-	     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-	     <!-- Navbar Collapse -->
-	     <div class="collapse navbar-collapse" id="navbarCollapse">
-	       <ul class="navbar-nav ms-auto">
-	         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
-	         </li>
-	         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	           COMMUNITY</a>
-	       		<div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="aboard">Notice</a><a class="dropdown-item" href="aboard">Q&A</a><a class="dropdown-item" href="aboard">Review <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
-	       	 </li>
-	       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
-	       	 
-	       	 <c:if test="${loginCno==null && loginID==null}">	
-		        <li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
-		        <li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
-		     </c:if>
-	         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	              회원메뉴</a>
-	          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
-	           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-	             	<c:if test="${loginCno==null && loginID==null}">
-	             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
-		             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
-	    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
-	    	         </c:if>
-	    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
-	    	         <c:if test="${loginCno!=null && loginID==null}">
-	    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
-		   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
-	    	        	<a class="dropdown-item" href="cdetail?cno=${loginCno}&jcode=U">내정보수정_spring03ver.</a>&nbsp;&nbsp;
-						<a class="dropdown-item" href="cinfo_main">내정보수정</a>&nbsp;&nbsp;
-						<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
-						<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
-					 </c:if>
-			   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 
-			   			***************** 세영 수정--> 
-	    	         <c:if test="${loginCno==null && loginID!=null}">
-	    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
-		   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
-	    	        	<a class="dropdown-item" href="cdetail?cno=${loginID}&jcode=U">내정보수정</a>&nbsp;&nbsp;
-						<a class="dropdown-item" href="cinfo_cinfo">사업자MyInfo</a>&nbsp;&nbsp;
-						<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
-						<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
-					 </c:if>
-	           </div>
-	         </li>
-	          <!-- 예약부분 추가할거있으면 추가 
-			   			***************** 선민 수정-->
-	         <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
-	       </ul>
-	     </div>
-	   </div>
-	 </nav>
-	 <!-- /Navbar-->
-	</header>
+<header class="header">
+ <!-- Navbar-->
+ <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+   <div class="container-fluid">
+     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
+     <img src="resources/image/logo.svg" alt="Logo"></a></div>
+               
+     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+     <!-- Navbar Collapse -->
+     <div class="collapse navbar-collapse" id="navbarCollapse">
+       <ul class="navbar-nav ms-auto">
+         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
+         </li>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           COMMUNITY</a>
+       		<div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="aboard">Notice</a><a class="dropdown-item" href="aboard">Q&A</a><a class="dropdown-item" href="aboard">Review <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+       	 </li>
+       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
+       	 
+       	 <c:if test="${loginCno==null && loginID==null}">	
+	        <li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
+	        <li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
+	     </c:if>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              회원메뉴</a>
+          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
+           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+             	<c:if test="${loginCno==null && loginID==null}">
+             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
+	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
+    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
+    	         </c:if>
+    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
+    	         <c:if test="${loginCno!=null && loginID==null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+				 </c:if>
+		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 
+		   			***************** 세영 수정--> 
+    	         <c:if test="${loginCno==null && loginID!=null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+	   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
+    	        	<a class="dropdown-item" href="cdetail?cno=${loginID}&jcode=U">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">사업자MyInfo</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
+				 </c:if>
+           </div>
+         </li>
+          <!-- 예약부분 추가할거있으면 추가 
+		   			***************** 선민 수정-->
+         <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
+       </ul>
+     </div>
+   </div>
+ </nav>
+</header>
     <!-- Hero Section-->
     <section class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover" style="background-image: url('${Apple.comuploadfile}');">
       <div class="container overlay-content">
@@ -127,7 +125,7 @@
             <p><i class="fa-map-marker-alt fas me-2"></i>${Apple.caddr}</p>
           </div>
            <!-- 리뷰남길수 있는 링크와 연결 -->
-          <div class="calltoactions"><a class="btn btn-primary" href="#leaveReview" onclick="$('#leaveReview').collapse('show')" data-smooth-scroll>Leave a Review</a></div>
+          <div class="calltoactions"><a class="btn btn-primary" href="cinfo_cinfo">내 정보 수정 하기</a></div>
         </div>
       </div>
     </section>

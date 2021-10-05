@@ -103,74 +103,87 @@ function cnoDupCheck() {
 	}else {
 		var url="cnoCheck?cno="+$('#cno').val();
 		window.open(url,"_blank",
-			"toolbar=no,menubar=yes,scrollbars=yes,resizable=yes,width=500,height=400");
+			"toolbar=no,menubar=yes,scrollbars=yes,resizable=yes,width=600,height=450");
 	}
 } //cnoDupCheck
-
-//** 사업자번호 : 자동 하이픈 추가  
-function addHypen(obj) {
-    var number = obj.value.replace(/[^0-9]/g, "");
-    var cnoNum = "";
-
-    if(number.length < 4) {
-        return number;
-    } else if(number.length < 5) {
-    	cnoNum += number.substr(0, 3);
-    	cnoNum += "-";
-    	cnoNum += number.substr(3);
-    } else if(number.length < 10) {
-    	cnoNum += number.substr(0, 3);
-    	cnoNum += "-";
-    	cnoNum += number.substr(3, 2);
-    	cnoNum += "-";
-    	cnoNum += number.substr(5);
-    } else {
-    	cnoNum += number.substr(0, 3);
-    	cnoNum += "-";
-    	cnoNum += number.substr(3, 2);
-    	cnoNum += "-";
-    	cnoNum += number.substr(5);
-    }
-    obj.value = cnoNum;
-}
 </script>
+<style>
+#date_start:before {content:'시작일:';margin-right:.6em; color:#9d9d9d;}
+#date_end:before {content:'종료일:';margin-right:.6em; color:#9d9d9d;}
+#time_start:before {content:'시작시간:';margin-right:.6em; color:#9d9d9d;}
+#time_end:before {content:'마감시간:';margin-right:.6em; color:#9d9d9d;}
+</style>
 </head>
  <body style="padding-top: 72px;">
-    <header class="header">
-	 <!-- Navbar-->
-	 <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-	   <div class="container-fluid">
-	     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">
-	       
-	     <!--  *** 로고만들어서 로고 넣기  -->
-	     <img src="resources/image/logo.svg" alt="Directory logo"></a>
-	     </div>
-	     
-	     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-	     <!-- Navbar Collapse -->
-	     <div class="collapse navbar-collapse" id="navbarCollapse">
-	       <ul class="navbar-nav ms-auto">
-	         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
-	         </li>
-	         <li class="nav-item"><a class="nav-link" href="문의게시판">고객센터</a>
-	         </li>
-	         <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간둘러보기</a></li>
-	         <li class="nav-item"><a class="nav-link" href="loginf_total">통합로그인</a></li>
-	         <li class="nav-item"><a class="nav-link" href="joinf_total">통합회원가입</a></li>
-	         <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
-	       </ul>
-	     </div>
-	   </div>
-	 </nav>
-	</header>
+ <header class="header">
+ <!-- Navbar-->
+ <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+   <div class="container-fluid">
+     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
+     <img src="resources/image/logo.svg" alt="Logo"></a></div>
+               
+     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+     <!-- Navbar Collapse -->
+     <div class="collapse navbar-collapse" id="navbarCollapse">
+       <ul class="navbar-nav ms-auto">
+         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
+         </li>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           COMMUNITY</a>
+       		<div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="aboard">Notice</a><a class="dropdown-item" href="aboard">Q&A</a><a class="dropdown-item" href="aboard">Review <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+       	 </li>
+       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
+       	 
+       	 <c:if test="${loginCno==null && loginID==null}">	
+	        <li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
+	        <li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
+	     </c:if>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              회원메뉴</a>
+          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
+           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+             	<c:if test="${loginCno==null && loginID==null}">
+             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
+	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
+    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
+    	         </c:if>
+    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
+    	         <c:if test="${loginCno!=null && loginID==null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+				 </c:if>
+		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 
+		   			***************** 세영 수정--> 
+    	         <c:if test="${loginCno==null && loginID!=null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+	   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
+    	        	<a class="dropdown-item" href="cdetail?cno=${loginID}&jcode=U">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">사업자MyInfo</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
+				 </c:if>
+           </div>
+         </li>
+          <!-- 예약부분 추가할거있으면 추가 
+		   			***************** 선민 수정-->
+         <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
+       </ul>
+     </div>
+   </div>
+ </nav>
+</header>
    <div class="progress rounded-0 sticky-top" style="height: 8px; top: 72px;">
-      <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
     <section class="py-5">
+    <form action="cjoin" method="post" id="myForm" enctype="multipart/form-data">
       <div class="container">
         <p class="subtitle text-primary">사업자회원가입</p>
-        <h1 class="h2 mb-5"><strong>기본정보 입력</strong> <span class="text-muted float-end">Step 1</span>      </h1>
-        <form>
+        <h1 class="h2 mb-5"><strong>사업자 정보 입력</strong></h1>
+          <!-- 1. 사업자번호 -->
           <div class="row form-block">
             <div class="col-lg-4">
               <h4>사업자번호</h4>
@@ -178,8 +191,8 @@ function addHypen(obj) {
             </div>
             <div class="col-lg-7 ms-auto">
               <div class="mb-4">
-                <label class="form-label" for="form_name">사업자번호</label>
-                <input class="form-control" name="cno" id="cno" onKeyup = "addHypen(this)" maxlength="10" placeholder="하이픈(-)없이 숫자 10자리 입력하세요">
+                <label class="form-label">사업자번호</label>
+                <input class="form-control" name="cno" id="cno" maxlength="10" placeholder="하이픈(-)없이 숫자 10자리 입력하세요"><br>
                 <input class="form-control btn-primary" type="button" value="사업자번호 중복확인" id="cnoDup" onclick="cnoDupCheck()">
               	<span id="cnoMessage" class="eMessage"></span>
               </div>
@@ -195,6 +208,7 @@ function addHypen(obj) {
               </div>
             </div>
           </div>
+          <!-- 2. 위치 및 주소 -->
           <div class="row form-block">
             <div class="col-lg-4">
               <h4>위치 및 주소</h4>
@@ -205,9 +219,9 @@ function addHypen(obj) {
 					<label class="form-label" for="caddr">주소 찾기</label>
 					<input class="form-control btn-primary" type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 				</div>
-				<div class="mb-4"><input class="form-control" name="postcode" id="postcode" type="text" placeholder="우편번호" ></div>
-				<div class="mb-4"><input class="form-control" name="addr" id="caddr" type="text" placeholder="주소"></div>
-				<div class="mb-4"><input class="form-control" name="detailAddr" id="detailAddr" type="text" placeholder="상세주소"></div>
+				<div class="mb-4"><input class="form-control" name="cpostcode" id="cpostcode" type="text" placeholder="우편번호" ></div>
+				<div class="mb-4"><input class="form-control" name="caddr" id="caddr" type="text" placeholder="주소"></div>
+				<div class="mb-4"><input class="form-control" name="detailAddr" id="cdetailaddr" type="text" placeholder="상세주소"></div>
 				<div class="mb-4"><input class="form-control" name="extraAddr" id="extraAddr" type="hidden" placeholder="참고항목"></div>
 					<script>
 				      function execDaumPostcode() {
@@ -248,23 +262,121 @@ function addHypen(obj) {
 				                    document.getElementById("extraAddr").value = '';
 				                }
 				                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-				                document.getElementById('postcode').value = data.zonecode;
+				                document.getElementById('cpostcode').value = data.zonecode;
 				                document.getElementById("caddr").value = caddr;
-				                document.getElementById("detailAddr").focus();
+				                document.getElementById("detailaddr").focus();
 				          		  }
 				        	}).open();
 				   		 }
 					</script>
 				</div>
 			</div>
-          </div>
-          <div class="row form-block flex-column flex-sm-row">
-            <div class="col text-center text-sm-start">
+          <!-- 3. 상세정보 -->
+           <div class="row form-block">
+            <div class="col-lg-4">
+              <h4>업체 상세 정보</h4>
+              <p class="text-muted text-sm">일반회원 고객에게 보여질 사업장의 정보입니다.<br>카테고리 및 상세 정보를 양식에 맞게 기입하세요.</p>
             </div>
-            <div class="col text-center text-sm-end"><a class="btn btn-primary px-3" href="user-add-2.html"> Next step<i class="fa-chevron-right fa ms-2"></i></a></div>
+            <div class="col-lg-7 ms-auto">
+              <div class="mb-5">
+                <label class="form-label" for="form_description">카테고리</label>
+                <select class="selectpicker form-control" name="ctype" id="ctype" data-style="btn-selectpicker" data-live-search="true">
+                	<option value="G" selected="selected">선택해주세요</option>
+					<option value="A">맛집</option>
+					<option value="B">도서관</option>
+					<option value="C">카페</option>
+					<option value="D">팝업스토어</option>
+					<option value="E">전시</option>
+					<option value="F">축제</option>
+                </select>
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="form_description">상세정보</label>
+                <textarea class="form-control" name="cinfo" id="cinfo" rows="5" placeholder="[예시] 000갤러리는 개관 이후 지금까지 대표적인 국내 화랑으로서 세계적으로 유명한 현대미술 작가의 작품과 그 흐름을 접하고 감상할 수 있는 흔치 않은 기회를 제공합니다."></textarea>
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="form_description">행사기간</label>
+                <input class="form-control " type="date" name="cdate_s" id="date_start">
+				<input class="form-control" type="date" name="cdate_e" id="date_end">
+				<input class="form-check-input" type="checkbox">
+				<label class="form-check-label text-muted">없음    </label>
+                <small class="form-text text-muted mt-2">(행사기간은 전시·이벤트에만 해당되므로 없을시에 체크 후 이동)</small>
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="form_description">이용시간</label>
+                <input class="form-control mb-2 " type="time" name="period_s" id="time_start" placeholder="시작시간">
+                <input class="form-control" type="time" name="period_e" id="time_end" placeholder="마감시간">
+                <small class="form-text text-muted mt-2"><span id="periMessage" class="eMessage"></span></small>
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="form_description">휴무일</label>
+                <input class="form-control mb-2 " type="text" name="cdate" id="cdate" placeholder="[예시] 연중무휴, 일요일 휴무 등">
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="form_description">입장료</label>
+                <input class="form-control mb-2 " type="text" name="cprice" id="cprice" value="" size="10" placeholder="'원'은 제외하고 가격만 적어주세요.">
+                <small class="form-text text-muted mt-2">입장료가 무료일 경우에는 '0'이라고 기입하십시오</small>
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="form_description">주차여부</label>
+                <select class="selectpicker form-control" name="cpark" id="cpark" data-style="btn-selectpicker" >
+                	<option value="Y" selected="selected">가능</option>
+  	  				<option value="N">불가능</option>
+                </select>
+              </div>            
+            </div>
           </div>
-        </form>
-      </div>
+          <div class="row form-block">
+            <div class="col-lg-4">
+              <h4>문의정보</h4>
+              <p class="text-muted text-sm">일반회원 고객에게 보여질 문의정보입니다.<br>정확한 SNS·전화번호를 양식에 맞게 기입하세요.</p>
+            </div>
+            <div class="col-lg-7 ms-auto">
+              <div class="mb-5">
+                <label class="form-label" for="form_description">SNS 및 홈페이지</label>
+                <input class="form-control" type="text" name="csite" id="csite" value="" size="30">
+              </div>
+              <div class="mb-5">
+                <label class="form-label" for="form_description">전화번호</label>
+                <input class="form-control" type="text" name="ctel" id="ctel" value="" size="10">
+              </div>            
+            </div>
+          </div>
+                  <div class="row form-block">
+			          <div class="col-lg-4">
+			            <h4>대표이미지</h4>
+			            <p class="text-muted text-sm">일반회원 고객에게 보여질 업체 대표사진입니다.</p>
+			          </div>
+			          <div class="col-lg-7 ms-auto">
+			            <div class="mb-4"> 
+			                <div class="dz-message text-muted">
+			                  <img src="" class="select_img" width="300"><br>
+			                  <input type="file" name="comuploadfilef" id="comuploadfilef">
+			                  <script>
+								$('#comuploadfilef').change(function(){
+									if(this.files && this.files[0]) {
+										var reader = new FileReader;
+								 			reader.onload = function(e) {
+							 				$(".select_img").attr("src", e.target.result)
+							 					.width(100).height(100); 
+							 				} // onload_function
+							 				reader.readAsDataURL(this.files[0]);
+							 		} // if
+								}); // change	
+						  	  </script>  
+			                </div>
+			            </div>
+			          </div>
+			        </div>
+          
+          <div class="row form-block flex-column flex-sm-row">
+            <div class="col text-center text-sm-start"></div>
+            <div class="col text-center text-sm-end">
+            <input type="submit" value="가입완료" onclick="return comInCheck()" disabled id="submit" class="btn btn-primary px-3">
+            </div>
+          </div>
+        </div>
+        </form>     
     </section>
     <!-- Footer-->
     <footer class="position-relative z-index-10 d-print-none">

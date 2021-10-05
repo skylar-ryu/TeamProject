@@ -134,7 +134,7 @@ $(function() {
 					};    
 			var map = new kakao.maps.Map(mapContainer, mapOption); 
 			var geocoder = new kakao.maps.services.Geocoder();
-			var address = '서울특별시' ;
+			var address = '부산 해운대' ;
 			var description = '' ;
 			
 			geocoder.addressSearch(address, function(result, status) { 
@@ -153,22 +153,22 @@ $(function() {
    </section>
    <section class="py-5 bg-gray-100 shadow">
      <div class="container">
-       <h1>서울특별시</h1><h4 class="text-gray-600">Seoul</h4> 
-       <p class="lead mb-5 text-gray-600 fs-5">과거와 현재가 공존하며 하루가 다르게 변하는 서울을 여행하는 일은 매일이 새로운 경험을 선사합니다.<br>도시 한복판에서 600년의 역사를 그대로 안고 있는 아름다운 고궁들과 더불어 대한민국의 트렌드를 이끌어나가는<br>예술과 문화의 크고 작은 동네들을 둘러볼 수 있는 서울은 도시 여행에 최적화된 장소입니다.</p>
+       <h1>부산광역시</h1><h4 class="text-gray-600">Busan</h4> 
+       <p class="lead mb-5 text-gray-600 fs-5">우리나라 제2의 수도 부산광역시. 부산 대표 관광지로 손꼽히는 해운대는 밤에는 마린시티의 야경이 더해져 더욱 화려한 해변이 됩니다.<br>감천문화마을은 사진 찍기에 좋으며, 매해 가을마다 개최되는 아시아 최대 규모의 영화제인 부산국제영화제와 함께 부산의 구석구석을<br>즐겨보는 것도 좋은 경험이 될 것입니다. 전통시장 투어가 있을 만큼 먹거리가 가득한 부산의 맛기행은 필수!</p>
        <ul class="nav nav-pills-custom">
-         <li class="nav-item"><a class="nav-link" href="#">종로구</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">동대문구</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">용산구</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">강남구${test.totalRowCount}</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">부산중구</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">해운대</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">수영</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">기장</a></li>
        </ul>
      </div>
    </section>
    <section class="py-5">
      <div class="container">
        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
-         <div class="me-3">
+<%--          <div class="me-3">
            <p class="mb-3 mb-md-0"><strong> <!-- 전체글 개수 ${pageMaker.TotalRowCount}-->${test.totalRowCount}</strong> results found ${fn:substring(list.addr,0,2)}</p>
-         </div>
+         </div> --%>
 <!--          <div>
            <label class="form-label me-2" for="form_sort">Sort by</label>
            <select class="selectpicker" name="sort" id="form_sort" data-style="btn-selectpicker" title="">
@@ -225,10 +225,9 @@ $(function() {
              </div>
            </div>
          </div>
-<%--          </c:if> --%>
 	     </c:forEach>
 	     </div>
-       <!-- Paging : 업체정보 미리보기 ********수정해야함 -->
+       <!-- Paging : 업체정보 미리보기 ********수정해야함 
         <nav aria-label="Page navigation example">
         <ul class="pagination pagination-template d-flex justify-content-center">
         	<li class="page-item">
@@ -237,7 +236,7 @@ $(function() {
 					<a href="compaging${pageMaker.makeQuery(pageMaker.spageNo-1)}">Prev</a>
 				</c:if>
 				
-				<!-- 2) sPageNo ~ ePageNo 까지, displayPageNo 만큼 표시 -->
+				<!-- 2) sPageNo ~ ePageNo 까지, displayPageNo 만큼 표시 
 				<c:forEach var="i" begin="${pageMaker.spageNo}" end="${pageMaker.epageNo}">
 					<c:if test="${i==pageMaker.cri.currPage}">
 						<font size="5" color="Orange">${i}</font>&nbsp;
@@ -246,11 +245,12 @@ $(function() {
 						<a href="compaging${pageMaker.makeQuery(i)}">${i}</a>&nbsp;
 					</c:if>
 				</c:forEach> 
-				<!-- 3) Next >  ,  Last >>  처리 -->
+				<!-- 3) Next >  ,  Last >>  처리 
 				<c:if test="${pageMaker.next && pageMaker.epageNo>0}">
 					<a href="compaging${pageMaker.makeQuery(pageMaker.epageNo+1)}">Next</a>&nbsp;
 					<a href="compaging${pageMaker.makeQuery(pageMaker.lastPageNo)}">LL</a>&nbsp;&nbsp;
 				</c:if>
+				-->
 				
 				
 			<!-- 

@@ -36,279 +36,168 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 <!-- Font Awesome CSS-->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<script>
+//** 사업자회원 탈퇴
+function win_cdelete() {
+		alert('정말로 탈퇴하시겠습니까? 탈퇴하면 1달동안 가입 불가합니다.');
+		return true;
+		alert('회원탈퇴가 완료되었습니다. 탈퇴하면 1달동안 가입 불가합니다.');
+}
+</script>
 </head>
 <body>
  <body style="padding-top: 72px;">
-  <header class="header">
-    <!-- Navbar-->
-    <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-      <div class="container-fluid">
-        <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home"><img src="resources/img/logo.svg" alt="Directory logo"></a>
-          <form class="form-inline d-none d-sm-flex" action="#" id="search">
-            <div class="input-label-absolute input-label-absolute-left input-expand ms-lg-2 ms-xl-3"> 
-              <label class="label-absolute" for="search_search"><i class="fa fa-search"></i><span class="sr-only">What are you looking for?</span></label>
-              <input class="form-control form-control-sm border-0 shadow-0 bg-gray-200" id="search_search" placeholder="Search" aria-label="Search" type="search">
-            </div>
-          </form>
-        </div>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-        <!-- Navbar Collapse -->
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <form class="form-inline mt-4 mb-2 d-sm-none" action="#" id="searchcollapsed">
-            <div class="input-label-absolute input-label-absolute-left w-100">
-              <label class="label-absolute" for="searchcollapsed_search"><i class="fa fa-search"></i><span class="sr-only">What are you looking for?</span></label>
-              <input class="form-control form-control-sm border-0 shadow-0 bg-gray-200" id="searchcollapsed_search" placeholder="Search" aria-label="Search" type="search">
-            </div>
-          </form>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 Home</a>
-              <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="index.html">Rooms</a><a class="dropdown-item" href="index-2.html">Restaurants</a><a class="dropdown-item" href="index-3.html">Travel</a><a class="dropdown-item" href="index-4.html">Real Estate <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
-            </li>
-            <!-- Megamenu-->
-            <li class="nav-item dropdown position-static"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Template</a>
-              <div class="dropdown-menu megamenu py-lg-0">
-                <div class="row">
-                  <div class="col-lg-9">
-                    <div class="row p-3 pe-lg-0 ps-lg-5 pt-lg-5">
-                      <div class="col-lg-3">
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">Homepage</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="index.html">Rooms   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-2.html">Restaurants   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-3.html">Travel   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-4.html">Real estate <span class="badge badge-info-light ms-1">New</span>   </a></li>
-                        </ul>
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">Restaurants</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="category.html">Category - Map on the top   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-2.html">Category - Map on the right   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-3.html">Category - no map   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="detail.html">Restaurant detail   </a></li>
-                        </ul>
-                      </div>
-                      <div class="col-lg-3">
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">Rooms</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-rooms.html">Category - Map on the top   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-2-rooms.html">Category - Map on the right   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-3-rooms.html">Category - no map   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="detail-rooms.html">Room detail   </a></li>
-                        </ul>
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">Blog</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="blog.html">Blog   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="post.html">Post   </a></li>
-                        </ul>
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">Pages</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="compare.html">Comparison   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="team.html">Team   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="contact.html">Contact   </a></li>
-                        </ul>
-                      </div>
-                      <div class="col-lg-3">
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">Pages</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="pricing.html">Pricing   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="text.html">Text page   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="faq.html">F.A.Q.s   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="coming-soon.html">Coming soon   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="404.html">404 page   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="knowledge-base.html">Knowledge Base  <span class="badge badge-info-light ms-1">New</span>   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="knowledge-base-topic.html">Knowledge Base  &mdash; Topic<span class="badge badge-info-light ms-1">New</span>   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="terms.html">Terms & Conditions  <span class="badge badge-info-light ms-1">New</span>   </a></li>
-                        </ul>
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">Host</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-add-0.html">Add new listing - 6 pages   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-list.html">Bookings &mdash; list view   </a></li>
-                        </ul>
-                      </div>
-                      <div class="col-lg-3">
-                        <!-- Megamenu list-->
-                        <h6 class="text-uppercase">User</h6>
-                        <ul class="megamenu-list list-unstyled">
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-profile.html">Profile   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-account.html">Account   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-personal.html">Personal info - forms   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-security.html">Password & security - forms   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="login.html">Sign in   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="signup.html">Sign up   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-booking-1.html">Booking process - 4 pages   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-grid.html">Bookings &mdash; grid view   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-booking-detail.html">Booking detail   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-invoice.html">Invoice  <span class="badge badge-info-light ms-1">New</span>   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-messages.html">Messages <span class="badge badge-info-light ms-1">New</span>   </a></li>
-                          <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-messages-detail.html">Message Detail  <span class="badge badge-info-light ms-1">New</span>   </a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="row megamenu-services d-none d-lg-flex ps-lg-5">
-                      <div class="col-xl-3 col-lg-6 d-flex">
-                        <div class="megamenu-services-item">
-                          <svg class="svg-icon megamenu-services-icon">
-                            <use xlink:href="#destination-map-1"> </use>
-                          </svg>
-                          <div>
-                            <h6 class="text-uppercase">Best rentals</h6>
-                            <p class="mb-0 text-muted text-sm">Find the perfect place</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-lg-6 d-flex">
-                        <div class="megamenu-services-item">
-                          <svg class="svg-icon megamenu-services-icon">
-                            <use xlink:href="#money-box-1"> </use>
-                          </svg>
-                          <div>
-                            <h6 class="text-uppercase">Earn points</h6>
-                            <p class="mb-0 text-muted text-sm">And get great rewards</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-lg-6 d-flex">
-                        <div class="megamenu-services-item">
-                          <svg class="svg-icon megamenu-services-icon">
-                            <use xlink:href="#customer-support-1"> </use>
-                          </svg>
-                          <div>
-                            <h6 class="text-uppercase">020-800-456-747</h6>
-                            <p class="mb-0 text-muted text-sm">24/7 Available Support</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-lg-6 d-flex">
-                        <div class="megamenu-services-item">
-                          <svg class="svg-icon megamenu-services-icon">
-                            <use xlink:href="#secure-payment-1"> </use>
-                          </svg>
-                          <div>
-                            <h6 class="text-uppercase">Secure Payment</h6>
-                            <p class="mb-0 text-muted text-sm">Secure Payment</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 d-none d-lg-block position-relative"><img class="bg-image" src="resources/img/photo/photo-1521170665346-3f21e2291d8b.jpg" alt=""></div>
-                </div>
-              </div>
-            </li>
-            <!-- /Megamenu end-->
-            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 Docs</a>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-                <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="resources/docs/docs-introduction.html">Introduction </a><a class="dropdown-item" href="resources/docs/docs-directory-structure.html">Directory structure </a><a class="dropdown-item" href="resources/docs/docs-gulp.html">Gulp </a><a class="dropdown-item" href="resources/docs/docs-customizing-css.html">Customizing CSS </a><a class="dropdown-item" href="resources/docs/docs-credits.html">Credits </a><a class="dropdown-item" href="resources/docs/docs-changelog.html">Changelog </a>
-                <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item" href="resources/docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item" href="resources/docs/components-directory.html">Theme </a>
-              </div>
-            </li>
-            <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img class="avatar avatar-sm avatar-border-white me-2" src="img/avatar/avatar-10.jpg" alt="Jack London"></a>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a class="dropdown-item" href="user-booking-1.html">Booking process - 4 pages </a><a class="dropdown-item" href="user-grid.html">Bookings &mdash; grid view </a><a class="dropdown-item" href="user-booking-detail.html">Booking detail </a>
-                <div class="dropdown-divider"></div><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2 text-muted"></i> Sign out</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- /Navbar -->
-  </header>
-  <section class="position-relative py-6"><img class="bg-image" src="img/photo/photo-1467987506553-8f3916508521.jpg" alt="">
+<header class="header">
+ <!-- Navbar-->
+ <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
+   <div class="container-fluid">
+     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
+     <img src="resources/image/logo.svg" alt="Logo"></a></div>
+               
+     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+     <!-- Navbar Collapse -->
+     <div class="collapse navbar-collapse" id="navbarCollapse">
+       <ul class="navbar-nav ms-auto">
+         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
+         </li>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           COMMUNITY</a>
+       		<div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="aboard">Notice</a><a class="dropdown-item" href="aboard">Q&A</a><a class="dropdown-item" href="aboard">Review <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+       	 </li>
+       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
+       	 
+       	 <c:if test="${loginCno==null && loginID==null}">	
+	        <li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
+	        <li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
+	     </c:if>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              회원메뉴</a>
+          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
+           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
+             	<c:if test="${loginCno==null && loginID==null}">
+             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
+	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
+    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
+    	         </c:if>
+    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
+    	         <c:if test="${loginCno!=null && loginID==null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+				 </c:if>
+		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 
+		   			***************** 세영 수정--> 
+    	         <c:if test="${loginCno==null && loginID!=null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+	   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
+    	        	<a class="dropdown-item" href="cdetail?cno=${loginID}&jcode=U">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">사업자MyInfo</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
+				 </c:if>
+           </div>
+         </li>
+          <!-- 예약부분 추가할거있으면 추가 
+		   			***************** 선민 수정-->
+         <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
+       </ul>
+     </div>
+   </div>
+ </nav>
+</header>
+      <section class="py-5">
       <div class="container">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb ps-0  justify-content-start">
+          <li class="breadcrumb-item"><a href="home">홈</a></li>
+          <li class="breadcrumb-item active">마이페이지   </li>
+        </ol>
+        <h1 class="hero-heading mb-0">마이페이지</h1>
+        <p class="text-muted mb-5">마이페이지를 통해 내 정보를 관리하세요.</p>
         <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body p-5"><strong class="text-uppercase text-secondary d-inline-block mb-2 text-sm">Featured</strong>
-                <h2 class="mb-3">Escape the city today</h2>
-                <p class="text-muted">As am hastily invited settled at limited civilly fortune me. Really spring in extent an by. Judge but built party world. Of so am he remember although required. Bachelor unpacked be advanced at. Confined in declared marianne is vicinity</p><a class="btn btn-link p-0" href="post.html">Continue reading <i class="fa fa-long-arrow-alt-right"></i></a>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#identity-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="cinfo_detail">정보 보기</a></h5>
+                <p class="text-muted card-text text-sm">고객에게 보여지는 내정보를 확인하세요</p>
               </div>
             </div>
           </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#password-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="cinfo_info">정보 수정</a></h5>
+                <p class="text-muted card-text text-sm">변경된 정보를 수정하세요</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#pay-by-card-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">예약내역</a></h5>
+                <p class="text-muted card-text text-sm">예약내역을 확인 할 수 있습니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#chat-app-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="#">문의하기</a></h5>
+                <p class="text-muted card-text text-sm">궁금하신 내용에 대해 문의하세요.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#diary-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3">
+                <a class="text-decoration-none text-dark stretched-link" onclick="win_cdelete()" href="cdelete">회원 탈퇴하기</a></h5>
+                <p class="text-muted card-text text-sm">Control connected apps, what you share, and who sees it</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 mb-30px">
+            <div class="card h-100 border-0 shadow hover-animate">
+              <div class="card-body">
+                <div class="icon-rounded bg-secondary-light mb-3">
+                  <svg class="svg-icon text-secondary w-2rem h-2rem">
+                    <use xlink:href="#mix-1"> </use>
+                  </svg>
+                </div>
+                <h5 class="card-title mb-3"><a class="text-decoration-none text-dark stretched-link" href="clogout">로그아웃</a></h5>
+                <p class="text-muted card-text text-sm">버튼을 누르면 계정이 로그아웃됩니다.</p>
+              </div>
+            </div>
+          </div>
+          
         </div>
-      </div>
-    </section>
-    <section class="py-6">
-      <div class="container">
-        <div class="row mb-5">
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="..."/></a>
-              <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Travel </a>
-                <h5 class="my-2"><a class="text-dark" href="post.html">Autumn fashion tips and tricks          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">Pellentesque habitant morbi tristique senectus. Vestibulum tortor quam, feugiat vitae, ultricies ege...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="..."/></a>
-              <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Living </a>
-                <h5 class="my-2"><a class="text-dark" href="post.html">Newest photo apps          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibu...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1482463084673-98272196658a.jpg" alt="..."/></a>
-              <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Travel </a>
-                <h5 class="my-2"><a class="text-dark" href="post.html">Best books about Photography          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.  Mauris placerat eleif...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1499695867787-121ffb7950bf.jpg" alt="..."/></a>
-              <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Living </a>
-                <h5 class="my-2"><a class="text-dark" href="post.html">Pellentesque habitant morbi          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestib...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1495562569060-2eec283d3391.jpg" alt="..."/></a>
-              <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Travel </a>
-                <h5 class="my-2"><a class="text-dark" href="post.html">10 Free things to do in Venice          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.  Mauris placerat eleif...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- blog item-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1514890547357-a9ee288728e0.jpg" alt="..."/></a>
-              <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Guides </a>
-                <h5 class="my-2"><a class="text-dark" href="post.html">Best of this year's Biennale          </a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                <p class="my-2 text-muted text-sm">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestib...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Pagination -->
-        <nav aria-label="Blog pagination">
-          <ul class="pagination justify-content-between mb-5">
-            <li class="page-item"><a class="page-link text-sm rounded" href="#"> <i class="fa fa-chevron-left me-1"></i>Older posts</a></li>
-            <li class="page-item disabled"><a class="page-link text-sm rounded" href="#" tabindex="-1">Newer posts  <i class="fa fa-chevron-right ms-1"></i></a></li>
-          </ul>
-        </nav>
       </div>
     </section>
   <!-- Footer-->

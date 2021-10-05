@@ -62,64 +62,60 @@ $(function() {
 </script>
 </head>
  <body style="padding-top: 72px;">
-    <header class="header">
+<header class="header">
  <!-- Navbar-->
  <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
    <div class="container-fluid">
-     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">
-       
-     <!--  *** 로고만들어서 로고 넣기  -->
-     <img src="resources/image/logo.svg" alt="Directory logo"></a>
-     </div>
-     
+     <div class="d-flex align-items-center"><a class="navbar-brand py-1" href="home">  
+     <img src="resources/image/logo.svg" alt="Logo"></a></div>
+               
      <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
      <!-- Navbar Collapse -->
      <div class="collapse navbar-collapse" id="navbarCollapse">
        <ul class="navbar-nav ms-auto">
-         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Home</a>
-           <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="index.html">Rooms</a><a class="dropdown-item" href="index-2.html">Restaurants</a><a class="dropdown-item" href="index-3.html">Travel</a><a class="dropdown-item" href="index-4.html">Real Estate <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+         <li class="nav-item"><a class="nav-link active" id="home" href="home">Home</a>
          </li>
-         <li class="nav-item"><a class="nav-link" href="문의게시판">고객센터</a>
-         </li>
+         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="homeDropdownMenuLink" href="home" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           COMMUNITY</a>
+       		<div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="aboard">Notice</a><a class="dropdown-item" href="aboard">Q&A</a><a class="dropdown-item" href="aboard">Review <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+       	 </li>
+       	 <li class="nav-item"><a class="nav-link" href="ccontent_main">문화공간 정보보기</a></li>
+       	 
+       	 <c:if test="${loginCno==null && loginID==null}">	
+	        <li class="nav-item"><a class="nav-link" href="loginf_total">로그인</a></li>
+	        <li class="nav-item"><a class="nav-link" href="joinf_total">회원가입</a></li>
+	     </c:if>
          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              사업자회원메뉴</a>
+              회원메뉴</a>
+          <!-- 고객별 메뉴 01: 사업자회원/일반회원 둘다 로그인 안했을경우에 보이는 화면  -->
            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-             <h6 class="dropdown-header fw-normal">사업자회원</h6>
-             	<c:if test="${loginCno==null}">
-	             	<a class="dropdown-item" href="cloginf">로그인</a>
-    	         	<a class="dropdown-item" href="cjoinf">회원가입</a>
+             	<c:if test="${loginCno==null && loginID==null}">
+             		<h6 class="dropdown-header fw-normal">로그인 후 이용 가능합니다.</h6>
+	             	<a class="dropdown-item" href="cloginf">사업자회원 로그인</a>
+    	         	<a class="dropdown-item" href="loginf">일반회원 로그인</a>
     	         </c:if>
-    	         <c:if test="${loginCno!=null}">
+    	   <!-- 고객별 메뉴 02: 사업자회원 로그인/ 일반회원 로그인 안했을경우 -> 사업자만 로그인 --> 
+    	         <c:if test="${loginCno!=null && loginID==null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
+    	         	<a class="dropdown-item" href="cinfo_main">마이페이지</a>&nbsp;&nbsp;
+	   	         	<a class="dropdown-item" href="cinfo_detail">내정보보기</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
+				 </c:if>
+		   <!-- 고객별 메뉴 03: 사업자회원 로그인 안 했을경우/ 일반회원 로그인 -> 일반회원만 로그인 
+		   			***************** 세영 수정--> 
+    	         <c:if test="${loginCno==null && loginID!=null}">
+    	         <h6 class="dropdown-header fw-normal">사업자회원 메뉴</h6>
 	   	         	<a class="dropdown-item" href="cdetail">내정보보기</a>&nbsp;&nbsp;
-    	        	<a class="dropdown-item" href="cdetail?cno=${loginCno}&jcode=U">내정보수정</a>&nbsp;&nbsp;
-					<a class="dropdown-item" href="cinfo_main">사업자MyInfo</a>&nbsp;&nbsp;
+    	        	<a class="dropdown-item" href="cdetail?cno=${loginID}&jcode=U">내정보수정</a>&nbsp;&nbsp;
+					<a class="dropdown-item" href="cinfo_cinfo">사업자MyInfo</a>&nbsp;&nbsp;
 					<a class="dropdown-item" href="clogout">로그아웃</a>&nbsp;&nbsp;
 					<a class="dropdown-item" href="cdelete">회원탈퇴</a>&nbsp;&nbsp;
 				 </c:if>
-             <div class="dropdown-divider"></div>
-             <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item" href="resources/docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item" href="docs/components-directory.html">Theme </a>
            </div>
          </li>
-         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              일반회원메뉴</a>
-           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-             <h6 class="dropdown-header fw-normal">일반회원</h6>
-             	<c:if test="${loginID==null}">
-	             	<a class="dropdown-item" href="loginf">로그인</a>
-    	         	<a class="dropdown-item" href="joinf">회원가입</a>
-    	         </c:if>
-    	         <c:if test="${loginID!=null}">
-					<a class="dropdown-item" href="cinfo_main">일반회원MyInfo</a>&nbsp;&nbsp;
-					<a class="dropdown-item" href="logout">로그아웃</a>&nbsp;&nbsp;
-				 </c:if>
-             <div class="dropdown-divider"></div>
-             <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item" href="resources/docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item" href="docs/components-directory.html">Theme </a>
-           </div>
-         </li>
-         <li class="nav-item"><a class="nav-link" href="cdetail_main">업체정보보기</a></li>
-         <li class="nav-item"><a class="nav-link" href="joinf_total">통합회원가입</a></li>
-         <li class="nav-item"><a class="nav-link" href="cjoinf01">사업자회원 회원가입테스트</a></li>
+          <!-- 예약부분 추가할거있으면 추가 
+		   			***************** 선민 수정-->
          <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="rmainf">예약하기</a></li>
        </ul>
      </div>
@@ -133,7 +129,7 @@ $(function() {
             <div class="card">
               <div class="card-body p-5"><strong class="text-uppercase text-secondary d-inline-block mb-2 text-sm">지역 카테고리</strong>
                 <h2 class="mb-3">어디로 떠나볼까</h2>
-                <p class="text-muted text-gray-500">다양한 경험을 한번에 예약할 수 있는 안전한 통합 문화 플랫폼 <br>OOO을 이용하여 안전하고 즐거운 예약시스템을 활용해보세요<br>지역별로 다양한 공간들을 클릭하여 구경해보세요</p>
+                <p class="text-muted text-gray-500">다양한 경험을 한번에 예약할 수 있는 안전한 통합 문화 플랫폼 <br>문화플랫폼을 이용하여 안전하고 즐거운 예약시스템을 활용해보세요<br>지역별로 다양한 공간들을 클릭하여 구경해보세요</p>
               </div>
             </div>
           </div>
@@ -166,40 +162,10 @@ $(function() {
           <!-- 3. seoul-->
           <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
             <div class="card shadow border-0 h-100"><a href="ccontent_jeju"><img class="img-fluid card-img-top" src="resources/img/jeju_main.jpg" alt="..." width="200"/></a>
-              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Your Seoul Goes On </p>
+              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Only Jeju</p>
                 <h5 class="my-2"><a class="text-dark" href="ccontent_jeju">제주 Jeju</a></h5>
                 <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 제주시 · 서귀포 · 애월 </p>
                 <p class="my-2 text-muted text-sm">섬 전체가 하나의 거대한 관광자원인 제주도. 파도가 넘보는 주상절리와 바다 위 산책로인 용머리 해안은 제주에서만 볼 수 있는 천혜의 자연경관으로 손꼽힙니다. </p><a class="btn btn-link ps-0" href="ccontent_jeju">제주지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- 4. seoul-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="ccontent_seoul"><img class="img-fluid card-img-top" src="resources/img/seoul_main.jpg" alt="..." width="200"/></a>
-              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Your Seoul Goes On </p>
-                <h5 class="my-2"><a class="text-dark" href="ccontent_seoul">서울 Seoul</a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 종로구 · 용산구 · 동대문구 · 강남구</p>
-                <p class="my-2 text-muted text-sm">과거와 현재가 공존하며 하루가 다르게 변하는 서울을 여행하는 일은 매일이 새로운 경험을 선사합니다.</p><a class="btn btn-link ps-0" href="ccontent_seoul">서울지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- 5. seoul-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="ccontent_seoul"><img class="img-fluid card-img-top" src="resources/img/seoul_main.jpg" alt="..." width="200"/></a>
-              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Your Seoul Goes On </p>
-                <h5 class="my-2"><a class="text-dark" href="ccontent_seoul">서울 Seoul</a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 종로구 · 용산구 · 동대문구 · 강남구</p>
-                <p class="my-2 text-muted text-sm">과거와 현재가 공존하며 하루가 다르게 변하는 서울을 여행하는 일은 매일이 새로운 경험을 선사합니다.</p><a class="btn btn-link ps-0" href="ccontent_seoul">서울지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- 6. seoul-->
-          <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-            <div class="card shadow border-0 h-100"><a href="ccontent_seoul"><img class="img-fluid card-img-top" src="resources/img/seoul_main.jpg" alt="..." width="200"/></a>
-              <div class="card-body"><p class="text-uppercase text-muted text-sm letter-spacing-1">Your Seoul Goes On </p>
-                <h5 class="my-2"><a class="text-dark" href="ccontent_seoul">서울 Seoul</a></h5>
-                <p class="text-gray-500 text-sm my-3"><i class="fas fa-map-pin me-2"></i> 종로구 · 용산구 · 동대문구 · 강남구</p>
-                <p class="my-2 text-muted text-sm">과거와 현재가 공존하며 하루가 다르게 변하는 서울을 여행하는 일은 매일이 새로운 경험을 선사합니다.</p><a class="btn btn-link ps-0" href="ccontent_seoul">서울지역 살펴보기<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
               </div>
             </div>
           </div>         

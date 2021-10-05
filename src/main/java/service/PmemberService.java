@@ -27,9 +27,7 @@ public interface PmemberService {
 	PmemberVO pFindId(PmemberVO vo);
 	// ** Password 찾기
 	PmemberVO pFindPw(PmemberVO vo);
-	
-	
-	
+	// ** Password 재설정
 	public void updatePw(PmemberVO vo);
 	
 	
